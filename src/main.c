@@ -6,22 +6,11 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:17:30 by alevasse          #+#    #+#             */
-/*   Updated: 2022/06/20 13:33:37 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/06/21 15:15:41 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fdf.h>
-
-int	rgb_to_int(double r, double g, double b)
-{
-	int	color;
-
-	color = 0;
-	color |= (int)(b * 255);
-	color |= (int)(g * 255) << 8;
-	color |= (int)(r * 255) << 16;
-	return (color);
-}
+#include "fdf.h"
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -31,7 +20,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	draw_line(t_data *img, t_point *a, int *b, int color)
+/*void	draw_line(t_data *img, t_point *a, int *b, int color)
 {
 // Traiter les cas : dx2 = 0 ; dy2 = 0 ; dx2 == dy2 ; Initialisation des structures
 	int	dy;
@@ -92,7 +81,7 @@ void	draw_line(t_data *img, t_point *a, int *b, int color)
 			}
 		}
 	}
-}
+}*/
 
 int	main(int argc, char **argv)
 {
@@ -100,12 +89,16 @@ int	main(int argc, char **argv)
 	t_data	img;
 	char	*path;
 
-	path = argv[1];
-	map = ft_init_map(path, map);
-	img.img = mlx_new_image(map->mlx, 1920, 1080);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
-			&img.line_length, &img.endian);
-	mlx_put_image_to_window(map->mlx, map->win, img.img, 0, 0);
-	mlx_loop(map->mlx);
-	return (0);
+	if (argc == 2)
+	{
+		path = argv[1];
+		map = ft_init_map(path);
+		img.img = mlx_new_image(map->mlx, 1920, 1080);
+		img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
+				&img.line_length, &img.endian);
+		mlx_put_image_to_window(map->mlx, map->win, img.img, 0, 0);
+		mlx_loop(map->mlx);
+		return (0);
+	}
+	ft_printf("\n");
 }

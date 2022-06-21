@@ -6,14 +6,14 @@
 #    By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/01 13:11:44 by alevasse          #+#    #+#              #
-#    Updated: 2022/06/20 09:30:28 by alevasse         ###   ########.fr        #
+#    Updated: 2022/06/21 14:26:35 by alevasse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 			= fdf
 NAME_B 			= fdf
 
-SRC 			= src/main.c
+SRC 			= src/main.c src/ft_init.c src/ft_parse.c src/ft_utils.c
 
 SRC_B 			= 
 
@@ -24,7 +24,7 @@ INCLUDE 		= -I./include/ -Imlx
 
 MLX				= -lmlx -framework OpenGL -framework AppKit
 
-HEAD			= 
+HEAD			=
 					
 LIBS 			= ./libft/
 				

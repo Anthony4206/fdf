@@ -6,7 +6,7 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 07:39:45 by alevasse          #+#    #+#             */
-/*   Updated: 2022/06/20 12:11:58 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/06/21 15:15:02 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,18 @@ typedef struct s_bresenham
 	int	y_incr;
 }		t_bresenham;
 
+typedef struct s_point
+{
+	int	x;
+	int	y;
+	int	z;
+}		t_point;
+
 typedef struct s_map
 {
 	void	*mlx;
 	void	*win;
-	t_point	**coord;
+	t_point	*coord;
 	int		wdt;
 	int		hgt;
 	int		size;
@@ -58,11 +65,7 @@ typedef struct s_map
 	int		max_z;
 }			t_map;
 
-typedef struct s_point
-{
-	int				x;
-	int				y;
-	int				z;
-}					t_point;
+t_map	*ft_init_map(char *path);
+void	ft_parse(int fd, char *path, char *line, t_map *map);
 
 #endif
