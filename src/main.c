@@ -6,7 +6,7 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:17:30 by alevasse          #+#    #+#             */
-/*   Updated: 2022/06/21 15:15:41 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/06/22 11:13:50 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,19 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	}
 }*/
 
+void	ft_draw_point(t_map *map, t_data *img)
+{
+	int	i;
+
+	i = 0;
+	while (i < (map->wdt * map->hgt))
+	{
+		my_mlx_pixel_put(img, map->coord[i].x, map->coord[i].y, 0x00FF00FF);
+		i++;
+	}
+	mlx_put_image_to_window(map->mlx, map->win, img->img, 0, 0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_map	*map;
@@ -96,7 +109,8 @@ int	main(int argc, char **argv)
 		img.img = mlx_new_image(map->mlx, 1920, 1080);
 		img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
 				&img.line_length, &img.endian);
-		mlx_put_image_to_window(map->mlx, map->win, img.img, 0, 0);
+		ft_draw_point(map, &img);
+//		mlx_put_image_to_window(map->mlx, map->win, img.img, 5, 5);
 		mlx_loop(map->mlx);
 		return (0);
 	}

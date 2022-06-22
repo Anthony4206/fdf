@@ -6,7 +6,7 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 10:18:28 by alevasse          #+#    #+#             */
-/*   Updated: 2022/06/21 15:38:17 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/06/22 12:11:45 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,10 @@ void	ft_parse(int fd, char *path, char *line, t_map *map)
 		k = 0;
 		while (line[k])
 		{
-			map->coord[(j * map->wdt) + i].x = i;
-			map->coord[(j * map->wdt) + i].y = j;
+			map->coord[(j * map->wdt) + i].x = i * 100;
+			map->coord[(j * map->wdt) + i].y = j * 100;
 			map->coord[(j * map->wdt) + i++].z = ft_atoi(line + k);
 			ft_next_atoi(line, &k);
-			ft_printf("%2d | %2d | %2d\n", map->coord[(j * map->wdt) + i].x, map->coord[(j * map->wdt) + i].y, map->coord[(j * map->wdt) + i].z);
 		}
 		free(line);
 		line = get_next_line(fd);

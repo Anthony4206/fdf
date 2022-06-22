@@ -6,7 +6,7 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 11:42:05 by alevasse          #+#    #+#             */
-/*   Updated: 2022/06/21 15:14:45 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/06/22 10:07:03 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	ft_count_wdt(char *line)
 	wdt = 0;
 	while (line[i])
 	{
-		if (ft_isdigit(line[i]) && (line[i + 1] == ' ' || line[i + 1] == '\0'))
+		if (ft_isdigit(line[i]) && (line[i + 1] == ' ' || line[i + 1] == '\n'))
 			wdt++;
 		i++;
 	}
@@ -37,7 +37,6 @@ static int	ft_count_hgt(int fd, char *line)
 	hgt = 1;
 	while (i)
 	{
-		hgt++;
 		line = get_next_line(fd);
 		if (line == '\0')
 			i = 0;
