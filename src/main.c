@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:17:30 by alevasse          #+#    #+#             */
-/*   Updated: 2022/06/22 11:13:50 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/06/23 07:58:31 by Anthony          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	int	i;
 	int	dx2;
 	int	dy2;
-
 	W = 0;
 	H = 0;
 	x1 = 0;
@@ -90,9 +89,10 @@ void	ft_draw_point(t_map *map, t_data *img)
 	i = 0;
 	while (i < (map->wdt * map->hgt))
 	{
-		my_mlx_pixel_put(img, map->coord[i].x, map->coord[i].y, 0x00FF00FF);
+		my_mlx_pixel_put(img, map->coord[i].x, map->coord[i].y, 0x00FF0000);
 		i++;
 	}
+	draw_line(img, map, 0x00FF0000);
 	mlx_put_image_to_window(map->mlx, map->win, img->img, 0, 0);
 }
 
@@ -110,7 +110,6 @@ int	main(int argc, char **argv)
 		img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
 				&img.line_length, &img.endian);
 		ft_draw_point(map, &img);
-//		mlx_put_image_to_window(map->mlx, map->win, img.img, 5, 5);
 		mlx_loop(map->mlx);
 		return (0);
 	}
