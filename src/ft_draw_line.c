@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_draw_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 07:39:23 by alevasse          #+#    #+#             */
-/*   Updated: 2022/06/23 07:58:18 by Anthony          ###   ########.fr       */
+/*   Updated: 2022/06/23 15:40:21 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,56 +28,107 @@ static t_bresenham	ft_init_bresenham(t_point *pix1, t_point *pix2)
 	ret.y_incr = 1;
 	ret.save_dx = ret.ex;
 	ret.save_dy = ret.ey;
+	return (ret);
 }
 
-static void	ft_first_condition(t_data *img, int incr, t_bresenham pix)
+static void	ft_first_condition(t_data *img, t_bresenham *line, int color)
 {
-	if (dx2 > dy2)
+	int	i;
+
+	i = 0;
+	while (i <= line->save_dx)
 	{
-		while (i <= dx2)
+		my_mlx_pixel_put(img, line->x1, line->y1, color);
+		i++;
+		line->x1 += line->x_incr;
+		line->ex -= line->dy;
+		if (line->ex < 0)
 		{
-			my_mlx_pixel_put(img, x1, y1, color);
-			i++;
-			x1 += x_incr;
-			ex -= dy;
-			if (ex < 0)
-			{
-				y1 += y_incr;
-				ex += dx;
-			}
+			line->y1 += line->y_incr;
+			line->ex += line->dx;
 		}
 	}
 }
 
-static void	ft_second_condition(t_data *img, int incr, t_bresenham pix)
+static void	ft_second_condition(t_data *img, t_bresenham *line, int color)
 {
-	if (dx2 < dy2)
+	int	i;
+
+	i = 0;
+	while (i <= line->save_dy)
 	{
-		while (i <= dy2)
+		my_mlx_pixel_put(img, line->x1, line->y1, color);
+		i++;
+		line->y1 += line->y_incr;
+		line->ey -= line->dx;
+		if (line->ey < 0)
 		{
-			my_mlx_pixel_put(img, x1, y1, color);
-			i++;
-			y1 += y_incr;
-			ey -= dx;
-			if (ey < 0)
-			{
-				x1 += x_incr;
-				ey += dy;
-			}
+			line->x1 += line->x_incr;
+			line->ey += line->dy;
 		}
 	}
 }
 
-void	draw_line(t_data *img, t_map *map, int color)
+static void	ft_exeption(t_data *img, t_bresenham *line, int color)
 {
-// Traiter les cas : dx2 = 0 ; dy2 = 0 ; dx2 == dy2 ; Initialisation des structures
+	int	i;
+
+	i = 0;
+	if (line->save_dx == line->save_dy)
+	{
+		while (i <= line->save_dx)
+		{
+			my_mlx_pixel_put(img, line->x1, line->y1, color);
+			i++;
+			line->y1 += line->y_incr;
+			line->x1 += line->x_incr;
+		}
+	}
+	else if (line->save_dx == 0)
+	{
+		while (i <= line->save_dy)
+		{
+			my_mlx_pixel_put(img, line->x1, line->y1, color);
+			i++;
+			line->y1 += line->y_incr;
+		}
+	}
+	else if (line->save_dy == 0)
+	{
+		while (i <= line->save_dx)
+		{
+			my_mlx_pixel_put(img, line->x1, line->y1, color);
+			i++;
+			line->x1 += line->x_incr;
+		}
+	}
+}
+
+void	draw_lines(t_data *img, t_map *map, int color)
+{
 	t_bresenham	line;
 	int			i;
-	
+	int			j;
+
 	i = 0;
-	ft_init_bresenham(map->coord[])
-	if (x1 > x2)
-		x_incr = -1;
-	if (y1 > y2)
-		y_incr = -1;
+	while (i < map->count)
+	{
+		while (j < )
+		{
+			line = ft_init_bresenham(&map->coord[i], &map->coord[i + 1]);
+			if (line.x1 > line.x2)
+				line.x_incr = -1;
+			if (line.y1 > line.y2)
+				line.y_incr = -1;
+			if (line.save_dx == 0 || line.save_dy == 0
+				|| line.save_dx == line.save_dy)
+				ft_exeption(img, &line, color);
+			else if (line.save_dx > line.save_dy)
+				ft_first_condition(img, &line, color);
+			else if (line.save_dx < line.save_dy)
+				ft_second_condition(img, &line, color);
+			j++;
+		}
+		i++;
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:17:30 by alevasse          #+#    #+#             */
-/*   Updated: 2022/06/23 07:58:31 by Anthony          ###   ########.fr       */
+/*   Updated: 2022/06/23 09:07:48 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,12 @@ void	ft_draw_point(t_map *map, t_data *img)
 	int	i;
 
 	i = 0;
-	while (i < (map->wdt * map->hgt))
+	while (i < map->count)
 	{
 		my_mlx_pixel_put(img, map->coord[i].x, map->coord[i].y, 0x00FF0000);
 		i++;
 	}
-	draw_line(img, map, 0x00FF0000);
+	draw_lines(img, map, 0x00FF0000);
 	mlx_put_image_to_window(map->mlx, map->win, img->img, 0, 0);
 }
 

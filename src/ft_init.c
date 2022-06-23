@@ -6,7 +6,7 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 11:42:05 by alevasse          #+#    #+#             */
-/*   Updated: 2022/06/22 10:07:03 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/06/23 08:46:10 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ t_map	*ft_init_map(char *path)
 	free (line);
 	ret->hgt = ft_count_hgt(fd, line);
 	close (fd);
-	ret->coord = malloc(sizeof(t_point) * (ret->wdt * ret->hgt));
+	ret->count = ret->wdt * ret->hgt;
+	ret->coord = malloc(sizeof(t_point) * ret->count);
 	ft_parse(fd, path, line, ret);
 	return (ret);
 }
