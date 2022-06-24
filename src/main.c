@@ -6,7 +6,7 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:17:30 by alevasse          #+#    #+#             */
-/*   Updated: 2022/06/23 09:07:48 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/06/24 13:58:01 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,22 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 void	ft_draw_point(t_map *map, t_data *img)
 {
-	int	i;
+//	int	i;
+	t_point	pix1;
+	t_point	pix2;
 
-	i = 0;
-	while (i < map->count)
+	pix1.x = 100;
+	pix1.y = 100;
+	pix2.x = 400;
+	pix2.y = 405;
+//	i = 0;
+	ft_push_line(img, 1, 2, map->color);
+/*	while (i < map->count)
 	{
-		my_mlx_pixel_put(img, map->coord[i].x, map->coord[i].y, 0x00FF0000);
+		my_mlx_pixel_put(img, map->coord[i].x, map->coord[i].y, map->color);
 		i++;
 	}
-	draw_lines(img, map, 0x00FF0000);
+	ft_draw_lines(img, map);*/
 	mlx_put_image_to_window(map->mlx, map->win, img->img, 0, 0);
 }
 

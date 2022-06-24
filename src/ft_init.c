@@ -6,7 +6,7 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 11:42:05 by alevasse          #+#    #+#             */
-/*   Updated: 2022/06/23 08:46:10 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/06/24 13:55:34 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,43 @@ static int	ft_count_hgt(int fd, char *line)
 	return (hgt);
 }
 
+/*t_quaternion	ft_init_quaternion(double yaw, double pitch, double roll)
+{
+	t_quaternion	*q;
+
+	q = malloc(sizeof(t_quaternion));
+	if (!q)
+		exit (EXIT_FAILURE);
+	q->cy = cos();
+	q->sy = sin();
+	q->cp = cos();
+	q->sp = sin();
+	q->cr = sin();
+	q->sr = cos();
+}*/
+
+t_bresenham	*ft_init_bresenham(t_point *pix1, t_point *pix2)
+{
+	t_bresenham	*ret;
+
+	ret = malloc(sizeof(t_bresenham));
+	if (!ret)
+		exit (EXIT_FAILURE);
+	ret->x1 = pix1->x;
+	ret->x2 = pix2->x;
+	ret->y1 = pix1->y;
+	ret->y2 = pix2->y;
+	ret->ex = ft_abs(ret->x2 - ret->x1);
+	ret->ey = ft_abs(ret->y2 - ret->y1);
+	ret->dx = 2 * ret->ex;
+	ret->dy = 2 * ret->ey;
+	ret->x_incr = 1;
+	ret->y_incr = 1;
+	ret->save_dx = ret->ex;
+	ret->save_dy = ret->ey;
+	return (ret);
+}
+
 t_map	*ft_init_map(char *path)
 {
 	char	*line;
@@ -67,6 +104,7 @@ t_map	*ft_init_map(char *path)
 	ret->hgt = ft_count_hgt(fd, line);
 	close (fd);
 	ret->count = ret->wdt * ret->hgt;
+	ret->color = 0x00FF0000;
 	ret->coord = malloc(sizeof(t_point) * ret->count);
 	ft_parse(fd, path, line, ret);
 	return (ret);

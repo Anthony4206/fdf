@@ -6,14 +6,14 @@
 #    By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/01 13:11:44 by alevasse          #+#    #+#              #
-#    Updated: 2022/06/23 08:04:47 by alevasse         ###   ########.fr        #
+#    Updated: 2022/06/24 13:56:28 by alevasse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 			= fdf
 NAME_B 			= fdf
 
-SRC 			= src/main.c src/ft_init.c src/ft_parse.c src/ft_utils.c
+SRC 			= src/main.c src/ft_init.c src/ft_parse.c src/ft_utils.c \
 					src/ft_draw_line.c
 
 SRC_B 			= 
