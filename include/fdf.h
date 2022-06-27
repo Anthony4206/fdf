@@ -6,7 +6,7 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 07:39:45 by alevasse          #+#    #+#             */
-/*   Updated: 2022/06/24 14:01:19 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/06/27 08:00:00 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,22 @@
 # include <fcntl.h>
 # include <math.h>
 
-typedef struct s_data
+# define WIN_WDT 1500
+# define WIN_HGT 700
+
+typedef struct s_quaternion
 {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}			t_data;
+	double	w;
+	double	x;
+	double	y;
+	double	z;
+	double	cy;
+	double	sy;
+	double	cp;
+	double	sp;
+	double	cr;
+	double	sr;
+}			t_quaternion;
 
 typedef struct s_bresenham
 {
@@ -52,25 +60,23 @@ typedef struct s_point
 	int	color;
 }		t_point;
 
-typedef struct s_quaternion
+typedef struct s_data
 {
-	double	w;
-	double	x;
-	double	y;
-	double	z;
-	double	cy;
-	double	sy;
-	double	cp;
-	double	sp;
-	double	cr;
-	double	sr;
-}			t_quaternion;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}			t_data;
 
 typedef struct s_map
 {
 	void	*mlx;
 	void	*win;
 	t_point	*coord;
+	t_data	img;
+	int		offset_hgt;
+	int		offset_wdt;
 	int		wdt;
 	int		hgt;
 	int		count;
@@ -81,12 +87,18 @@ typedef struct s_map
 	int		max_z;
 }			t_map;
 
+/*typedef struct
+{
+	t_map	map;
+	
+}	t_runtime;*/
+
 void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int			ft_abs(int j);
-void		ft_draw_point(t_map *map, t_data *img);
+void		ft_draw_point(t_map *map);
 t_map		*ft_init_map(char *path);
 void		ft_parse(int fd, char *path, char *line, t_map *map);
-void		ft_draw_lines(t_data *img, t_map *map);
+void		ft_draw_lines(t_map *map);
 t_bresenham	*ft_init_bresenham(t_point *pix1, t_point *pix2);
 
 #endif

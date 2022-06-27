@@ -6,7 +6,7 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 11:42:05 by alevasse          #+#    #+#             */
-/*   Updated: 2022/06/24 13:55:34 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/06/27 07:59:38 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_map	*ft_init_map(char *path)
 	if (!ret)
 		exit (EXIT_FAILURE);
 	ret->mlx = mlx_init();
-	ret->win = mlx_new_window(ret->mlx, 1920, 1080, "FDF alevasse");
+	ret->win = mlx_new_window(ret->mlx, WIN_WDT, WIN_HGT, "FDF alevasse");
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 		exit (EXIT_FAILURE);

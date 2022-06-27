@@ -6,11 +6,22 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:17:30 by alevasse          #+#    #+#             */
-/*   Updated: 2022/06/24 13:58:01 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/06/27 08:19:59 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+/*void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+	char	*dst;
+	int		tmp;
+
+	tmp = (y * data->line_length + x);
+	dst = data->addr + tmp * (data->bits_per_pixel / 8);
+	if (tmp >= 0 && tmp < WIN_WDT * WIN_HGT)
+		*(unsigned int *)dst = color;
+}*/
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -82,41 +93,34 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	}
 }*/
 
-void	ft_draw_point(t_map *map, t_data *img)
+void	ft_draw_point(t_map *map)
 {
-//	int	i;
-	t_point	pix1;
-	t_point	pix2;
+	int	i;
 
-	pix1.x = 100;
-	pix1.y = 100;
-	pix2.x = 400;
-	pix2.y = 405;
-//	i = 0;
-	ft_push_line(img, 1, 2, map->color);
-/*	while (i < map->count)
+	i = 0;
+/*	while (i < WIN_WDT)
 	{
-		my_mlx_pixel_put(img, map->coord[i].x, map->coord[i].y, map->color);
-		i++;
-	}
-	ft_draw_lines(img, map);*/
-	mlx_put_image_to_window(map->mlx, map->win, img->img, 0, 0);
+		my_mlx_pixel_put(&map->img, i, WIN_HGT - 1, map->color);
+		i++; 
+	}*/
+	ft_draw_lines(map);
+	mlx_put_image_to_window(&map->mlx, map->win, map->img.img, 0, 0);
 }
 
 int	main(int argc, char **argv)
 {
 	t_map	*map;
-	t_data	img;
 	char	*path;
 
 	if (argc == 2)
 	{
 		path = argv[1];
 		map = ft_init_map(path);
-		img.img = mlx_new_image(map->mlx, 1920, 1080);
-		img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
-				&img.line_length, &img.endian);
-		ft_draw_point(map, &img);
+		map->img.img = mlx_new_image(map->mlx, WIN_WDT, WIN_HGT);
+		map->img.addr = mlx_get_data_addr(map->img.img,
+				&map->img.bits_per_pixel, &map->img.line_length,
+				&map->img.endian);
+		ft_draw_point(map);
 		mlx_loop(map->mlx);
 		return (0);
 	}
