@@ -6,7 +6,7 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 07:39:45 by alevasse          #+#    #+#             */
-/*   Updated: 2022/06/27 08:00:00 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/06/29 08:29:18 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_map
 	void	*mlx;
 	void	*win;
 	t_point	*coord;
+	t_point	*rotate;
 	t_data	img;
 	int		offset_hgt;
 	int		offset_wdt;
@@ -81,10 +82,9 @@ typedef struct s_map
 	int		hgt;
 	int		count;
 	int		color;
-	int		max_x;
-	int		max_y;
-	int		min_z;
-	int		max_z;
+	double	rx;
+	double	ry;
+	double	rz;
 }			t_map;
 
 /*typedef struct
@@ -93,12 +93,13 @@ typedef struct s_map
 	
 }	t_runtime;*/
 
-void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
-int			ft_abs(int j);
-void		ft_draw_point(t_map *map);
-t_map		*ft_init_map(char *path);
-void		ft_parse(int fd, char *path, char *line, t_map *map);
-void		ft_draw_lines(t_map *map);
-t_bresenham	*ft_init_bresenham(t_point *pix1, t_point *pix2);
+void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int				ft_abs(int j);
+void			ft_draw_point(t_map *map);
+t_map			*ft_init_map(char *path);
+void			ft_parse(int fd, char *path, char *line, t_map *map);
+void			ft_draw_lines(t_map *map);
+t_bresenham		*ft_init_bresenham(t_point *pix1, t_point *pix2);
+t_quaternion	*ft_init_quaternion(double yaw, double pitch, double roll);
 
 #endif

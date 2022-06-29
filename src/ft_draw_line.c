@@ -6,7 +6,7 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 07:39:23 by alevasse          #+#    #+#             */
-/*   Updated: 2022/06/27 07:55:41 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/06/29 10:24:45 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,21 @@ void	ft_push_line(t_map *map, t_point *pix1, t_point *pix2,
 		ft_second_condition(map, pix2, line);
 }
 
+void	ft_calculate_point(t_map *map)
+{
+	t_quaternion	*q;
+
+	q = ft_init_quaternion(map->rz, map->ry, map->rx);
+	while ()
+}
+
 void	ft_draw_lines(t_map *map)
 {
 	t_bresenham	line;
 	int			i;
 	int			j;
 
+	ft_calculate_point(map);
 	j = 0;
 	while (j < map->hgt)
 	{

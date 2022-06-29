@@ -6,7 +6,7 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 11:42:05 by alevasse          #+#    #+#             */
-/*   Updated: 2022/06/27 07:59:38 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/06/29 08:49:12 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,26 @@ static int	ft_count_hgt(int fd, char *line)
 	return (hgt);
 }
 
-/*t_quaternion	ft_init_quaternion(double yaw, double pitch, double roll)
+t_quaternion	*ft_init_quaternion(double yaw, double pitch, double roll)
 {
 	t_quaternion	*q;
 
+	printf("%f\n", yaw);
 	q = malloc(sizeof(t_quaternion));
 	if (!q)
 		exit (EXIT_FAILURE);
-	q->cy = cos();
-	q->sy = sin();
-	q->cp = cos();
-	q->sp = sin();
-	q->cr = sin();
-	q->sr = cos();
-}*/
+	q->cy = cos(yaw * 0.5);
+	q->sy = sin(yaw * 0.5);
+	q->cp = cos(pitch * 0.5);
+	q->sp = sin(pitch * 0.5);
+	q->cr = cos(roll * 0.5);
+	q->sr = sin(roll * 0.5);
+	q->w = q->cr * q->cp * q->cy + q->sr * q->sp * q->sy;
+	q->x = q->sr * q->cp * q->cy - q->cr * q->sp * q->sy;
+	q->y = q->cr * q->sp * q->cy + q->sr * q->cp * q->sy;
+	q->z = q->cr * q->cp * q->sy - q->sr * q->sp * q->cy;
+	return (q);
+}
 
 t_bresenham	*ft_init_bresenham(t_point *pix1, t_point *pix2)
 {
@@ -103,6 +109,9 @@ t_map	*ft_init_map(char *path)
 	free (line);
 	ret->hgt = ft_count_hgt(fd, line);
 	close (fd);
+	ret->rx = 0;
+	ret->ry = 0;
+	ret->rz = 0.785398;
 	ret->count = ret->wdt * ret->hgt;
 	ret->color = 0x00FF0000;
 	ret->coord = malloc(sizeof(t_point) * ret->count);
