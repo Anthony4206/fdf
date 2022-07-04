@@ -6,7 +6,7 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 07:39:45 by alevasse          #+#    #+#             */
-/*   Updated: 2022/06/29 08:29:18 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/07/04 13:10:50 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_point
 	int	x;
 	int	y;
 	int	z;
+	int	w;
 	int	color;
 }		t_point;
 

@@ -6,7 +6,7 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 11:42:05 by alevasse          #+#    #+#             */
-/*   Updated: 2022/06/29 08:49:12 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/07/04 13:16:21 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ t_quaternion	*ft_init_quaternion(double yaw, double pitch, double roll)
 {
 	t_quaternion	*q;
 
-	printf("%f\n", yaw);
 	q = malloc(sizeof(t_quaternion));
 	if (!q)
 		exit (EXIT_FAILURE);
@@ -109,9 +108,9 @@ t_map	*ft_init_map(char *path)
 	free (line);
 	ret->hgt = ft_count_hgt(fd, line);
 	close (fd);
-	ret->rx = 0;
+	ret->rx = 0.680678;
 	ret->ry = 0;
-	ret->rz = 0.785398;
+	ret->rz = -0.785398;
 	ret->count = ret->wdt * ret->hgt;
 	ret->color = 0x00FF0000;
 	ret->coord = malloc(sizeof(t_point) * ret->count);

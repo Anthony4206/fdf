@@ -6,7 +6,7 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 07:39:23 by alevasse          #+#    #+#             */
-/*   Updated: 2022/06/29 10:24:45 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/07/04 13:58:56 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,26 @@ void	ft_push_line(t_map *map, t_point *pix1, t_point *pix2,
 
 void	ft_calculate_point(t_map *map)
 {
-	t_quaternion	*q;
+	double	matrix44[4][4];
 
-	q = ft_init_quaternion(map->rz, map->ry, map->rx);
-	while ()
+	matrix44[0][0] = 0.707;
+	matrix44[0][1] = 0.707;
+	matrix44[0][2] = 0;
+	matrix44[0][3] = 0;
+	matrix44[1][0] = -0.707;
+	matrix44[1][1] = 0.707;
+	matrix44[1][2] = 0;
+	matrix44[1][3] = 0;
+	matrix44[2][0] = 0;
+	matrix44[2][1] = 0;
+	matrix44[2][2] = 1;
+	matrix44[2][3] = 0;
+	matrix44[3][0] = 0;
+	matrix44[3][1] = 0;
+	matrix44[3][2] = 0;
+	matrix44[3][3] = 1;
+
+	map->coord[]
 }
 
 void	ft_draw_lines(t_map *map)
