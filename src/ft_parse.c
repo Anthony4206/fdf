@@ -6,7 +6,7 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 10:18:28 by alevasse          #+#    #+#             */
-/*   Updated: 2022/06/27 08:16:09 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/07/06 13:25:06 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ double	ft_compute_size(t_map *map)
 	double	ret_hgt;
 	double	ret_wdt;
 
-	ret_wdt = ((WIN_WDT / 20 * 18) / map->wdt);
-	ret_hgt = ((WIN_HGT / 20 * 18) / map->hgt);
+	ret_wdt = ((WIN_WDT / 20 * 10) / map->wdt);
+	ret_hgt = ((WIN_HGT / 20 * 10) / map->hgt);
 	if (ret_wdt > ret_hgt)
 		return (ret_hgt);
 	else
@@ -45,19 +45,21 @@ void	ft_parse(int fd, char *path, char *line, t_map *map)
 
 	fd = open(path, O_RDONLY);
 	line = get_next_line(fd);
-	j = -1;
-	while (j++, line)
+	j = 0;
+	while (j < map->hgt && line)
 	{
 		i = 0;
 		k = 0;
-		while (line[k])
+		while (i < map->wdt && line[k])
 		{
-			map->coord[(j * map->wdt) + i].x = i * ft_compute_size(map);
-			map->coord[(j * map->wdt) + i].y = j * ft_compute_size(map);
-			map->coord[(j * map->wdt) + i].z = ft_atoi(line + k);
-			map->coord[(j * map->wdt) + i++].color = 0x00FF0000;
+			map->coord[j][i].x = i * ft_compute_size(map);
+			map->coord[j][i].y = j * ft_compute_size(map);
+			map->coord[j][i].z = ft_atoi(line + k);
+			map->coord[j][i].color = 0x00FF0000;
 			ft_next_atoi(line, &k);
+			i++;
 		}
+		j++;
 		free(line);
 		line = get_next_line(fd);
 	}

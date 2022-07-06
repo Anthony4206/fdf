@@ -6,7 +6,7 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 07:39:45 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/04 13:10:50 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/07/06 13:10:37 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include <fcntl.h>
 # include <math.h>
 
-# define WIN_WDT 1500
-# define WIN_HGT 700
+# define WIN_WDT 1920
+# define WIN_HGT 1080
 
 typedef struct s_quaternion
 {
@@ -74,15 +74,18 @@ typedef struct s_map
 {
 	void	*mlx;
 	void	*win;
-	t_point	*coord;
-	t_point	*rotate;
+	t_point	**coord;
+	t_point	**rotate;
 	t_data	img;
+	int		x_origin;
+	int		y_origin;
 	int		offset_hgt;
 	int		offset_wdt;
 	int		wdt;
 	int		hgt;
 	int		count;
 	int		color;
+	int		space;
 	double	rx;
 	double	ry;
 	double	rz;
@@ -102,5 +105,7 @@ void			ft_parse(int fd, char *path, char *line, t_map *map);
 void			ft_draw_lines(t_map *map);
 t_bresenham		*ft_init_bresenham(t_point *pix1, t_point *pix2);
 t_quaternion	*ft_init_quaternion(double yaw, double pitch, double roll);
+void			ft_calculate_point(t_map *map, t_point **s);
+t_point			**ft_init_coord(t_map *map);
 
 #endif

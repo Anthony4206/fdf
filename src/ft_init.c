@@ -6,7 +6,7 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 11:42:05 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/04 13:16:21 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/07/06 11:45:36 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,21 @@ t_bresenham	*ft_init_bresenham(t_point *pix1, t_point *pix2)
 	return (ret);
 }
 
+t_point	**ft_init_coord(t_map *map)
+{
+	t_point	**ret;
+	int		i;
+
+	i = 0;
+	ret = ft_calloc(map->hgt + 1, sizeof(t_point *));
+	while (i < map->hgt)
+	{
+		ret[i] = ft_calloc(map->wdt + 1, sizeof(t_point));
+		i++;
+	}
+	return (ret);
+}
+
 t_map	*ft_init_map(char *path)
 {
 	char	*line;
@@ -113,7 +128,11 @@ t_map	*ft_init_map(char *path)
 	ret->rz = -0.785398;
 	ret->count = ret->wdt * ret->hgt;
 	ret->color = 0x00FF0000;
-	ret->coord = malloc(sizeof(t_point) * ret->count);
+	ret->x_origin = WIN_WDT / 2;
+	ret->y_origin = WIN_HGT / 2;
+	ret->space = 50;
+	ret->coord = ft_init_coord(ret);
+	ret->rotate = ft_init_coord(ret);
 	ft_parse(fd, path, line, ret);
 	return (ret);
 }

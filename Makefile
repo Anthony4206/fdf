@@ -6,7 +6,7 @@
 #    By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/01 13:11:44 by alevasse          #+#    #+#              #
-#    Updated: 2022/06/29 08:32:57 by alevasse         ###   ########.fr        #
+#    Updated: 2022/07/06 12:52:13 by alevasse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME 			= fdf
 NAME_B 			= fdf
 
 SRC 			= src/main.c src/ft_init.c src/ft_parse.c src/ft_utils.c \
-					src/ft_draw_line.c
+					src/ft_draw_line.c	src/ft_CG.c
 
 SRC_B 			= 
 
@@ -30,7 +30,7 @@ HEAD			=
 LIBS 			= ./libft/
 				
 CC 				= gcc -g
-CFLAGS 			= -Wall -Wextra -Werror
+CFLAGS 			= -Wall -Wextra -Werror -fsanitize=address
 
 AR 				= ar rcs
 RM 				= rm -f

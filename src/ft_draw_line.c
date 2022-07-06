@@ -6,7 +6,7 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 07:39:23 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/04 13:58:56 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/07/06 13:14:10 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static void	ft_exeption(t_map *map, t_point *pix, t_bresenham *line)
 	{
 		while (++i <= line->save_dx)
 		{
+			ft_printf("%d | %d | %d\n", line->x1, line->y1, pix->color);
 			my_mlx_pixel_put(&map->img, line->x1 + map->offset_wdt,
 				line->y1 + map->offset_hgt, pix->color);
 			line->y1 += line->y_incr;
@@ -98,44 +99,23 @@ void	ft_push_line(t_map *map, t_point *pix1, t_point *pix2,
 		ft_second_condition(map, pix2, line);
 }
 
-void	ft_calculate_point(t_map *map)
-{
-	double	matrix44[4][4];
-
-	matrix44[0][0] = 0.707;
-	matrix44[0][1] = 0.707;
-	matrix44[0][2] = 0;
-	matrix44[0][3] = 0;
-	matrix44[1][0] = -0.707;
-	matrix44[1][1] = 0.707;
-	matrix44[1][2] = 0;
-	matrix44[1][3] = 0;
-	matrix44[2][0] = 0;
-	matrix44[2][1] = 0;
-	matrix44[2][2] = 1;
-	matrix44[2][3] = 0;
-	matrix44[3][0] = 0;
-	matrix44[3][1] = 0;
-	matrix44[3][2] = 0;
-	matrix44[3][3] = 1;
-
-	map->coord[]
-}
-
 void	ft_draw_lines(t_map *map)
 {
 	t_bresenham	line;
 	int			i;
 	int			j;
 
-	ft_calculate_point(map);
+	ft_calculate_point(map, map->coord);
 	j = 0;
 	while (j < map->hgt)
 	{
 		i = -1;
 		while (++i < (map->wdt - 1))
-			ft_push_line(map, &map->coord[(j * map->wdt) + i],
-				&map->coord[(j * map->wdt) + i + 1], &line);
+		{
+//			ft_printf("%d\n", map->rotate[0][5].x);
+			ft_push_line(map, &map->rotate[j][i],
+				&map->rotate[j][i + 1], &line);
+		}
 		j++;
 	}
 	j = 0;
@@ -143,8 +123,8 @@ void	ft_draw_lines(t_map *map)
 	{
 		i = -1;
 		while (++i < (map->wdt))
-			ft_push_line(map, &map->coord[(j * map->wdt) + i],
-				&map->coord[((j + 1) * map->wdt) + i], &line);
+			ft_push_line(map, &map->rotate[j][i],
+				&map->rotate[j + 1][i], &line);
 		j++;
 	}
 }
