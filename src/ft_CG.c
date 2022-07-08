@@ -1,86 +1,115 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_CG.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/08 07:22:48 by alevasse          #+#    #+#             */
+/*   Updated: 2022/07/08 11:18:22 by alevasse         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
-double	ft_length_vec3(t_point *v)
+double	**ft_alloc_matrix(void)
 {
-	return (sqrt(v->x * v->x + v->y * v->y + v->z * v->z));
-}
+	double	**ret;
+	int		i;
 
-void	ft_normalize(t_point *v)
-{
-	double	len;
-	double	factor;
-
-	len = v->x * v->x + v->y * v->y + v->z * v->z;
-	if (len > 0)
+	i = 0;
+	ret = ft_calloc(3, sizeof(double *));
+	while (i < 3)
 	{
-		factor = 1 / sqrt(len);
-		//Récupérer nouvelle valeur dans une tmp ?
-		v->x *= factor;
-		v->y *= factor;
-		v->z *= factor;
+		ret[i] = ft_calloc(3, sizeof(double));
+		i++;
 	}
+	return (ret);
 }
 
-double	ft_dot(t_point *a, t_point *b)
+double	**ft_matrix_rx(t_map *map)
 {
-	return (a->x * b->x + a->y * b->y + a->z * b->z);
-}
+	double	**ret;
 
-t_point	ft_cross(t_point *a, t_point *b)
-{
-	t_point *ret;
-
-	ret = malloc(sizeof(t_point));
+	ret = ft_alloc_matrix();
 	if (!ret)
-		exit(EXIT_FAILURE);
-	ret->x = a->y * b->z - a->z * b->y;
-	ret->y = a->z * b->x - a->x * b->z;
-	ret->z = a->x * b->y - a->y * b->x;
-	return (*ret);
+		exit (EXIT_FAILURE);
+	ret[0][0] = 1;
+	ret[0][1] = 0;
+	ret[0][2] = 0;
+	ret[1][0] = 0;
+	ret[1][1] = cos(map->rx);
+	ret[1][2] = -sin(map->rx);
+	ret[2][0] = 0;
+	ret[2][1] = sin(map->rx);
+	ret[2][2] = cos(map->rx);
+	return (ret);
+}
+
+double	**ft_matrix_rz(t_map *map)
+{
+	double	**ret;
+
+	ret = ft_alloc_matrix();
+	if (!ret)
+		exit (EXIT_FAILURE);
+	ret[0][0] = cos(map->rz);
+	ret[0][1] = -sin(map->rz);
+	ret[0][2] = 0;
+	ret[1][0] = sin(map->rz);
+	ret[1][1] = cos(map->rz);
+	ret[1][2] = 0;
+	ret[2][0] = 0;
+	ret[2][1] = 0;
+	ret[2][2] = 1;
+	return (ret);
+}
+
+double	**ft_multiply_matrix(double **rx, double **rz)
+{
+	double	**ret;
+	int		i;
+	int		j;
+	int		k;
+
+	ret = ft_alloc_matrix();
+	if (!ret)
+		exit (EXIT_FAILURE);
+	i = -1;
+	while (++i < 3)
+	{
+		j = -1;
+		while (++j < 3)
+		{
+			k = -1;
+			while (++k < 3)
+				ret[i][j] += rx[i][k] * rz[k][j];
+		}
+	}
+	return (ret);
 }
 
 void	ft_calculate_point(t_map *map, t_point **s)
 {
 	int		i;
 	int		j;
-	double	m[4][4];
-	double	a;
-	double	b;
-	double	c;
-	double	w;
+	double	**rx;
+	double	**rz;
+	double	**m3;
 
-	m[0][0] = 0.707;
-	m[0][1] = 0.707;
-	m[0][2] = 0;
-	m[0][3] = 0;
-	m[1][0] = -0.707;
-	m[1][1] = 0.707;
-	m[1][2] = 0;
-	m[1][3] = 0;
-	m[2][0] = 0;
-	m[2][1] = 0;
-	m[2][2] = 1;
-	m[2][3] = 0;
-	m[3][0] = 0;
-	m[3][1] = 0;
-	m[3][2] = 0;
-	m[3][3] = 1;
+	rx = ft_matrix_rx(map);
+	rz = ft_matrix_rz(map);
+	m3 = ft_multiply_matrix(rx, rz);
 	j = 0;
 	while (j < map->hgt)
 	{
 		i = 0;
 		while (i < map->wdt)
 		{
-//			ft_printf("%d | %d\n", j, i);
-			a = s[j][i].x * m[0][0] + s[j][i].y * m[1][0] + s[j][i].z * m[2][0] + m[3][0];
-			b = s[j][i].x * m[0][1] + s[j][i].y * m[1][1] + s[j][i].z * m[2][1] + m[3][1];
-			c = s[j][i].x * m[0][2] + s[j][i].y * m[1][2] + s[j][i].z * m[2][2] + m[3][2];
-			w = s[j][i].x * m[0][3] + s[j][i].y * m[1][3] + s[j][i].z * m[2][3] + m[3][3];
-			map->rotate[j][i].x = a / w;
-			map->rotate[j][i].y = b / w;
-			map->rotate[j][i].z = c / w;
-			map->rotate[j][i].color = 0x00FF0000;
-//			printf("%d | %d | %d\n", map->rotate[j][i].x, map->rotate[j][i].y, map->rotate[j][i].z);
+			map->init[j][i].x = s[j][i].x * m3[0][0] + s[j][i].y * m3[0][1] + s[j][i].z * m3[0][2];
+			map->init[j][i].y = s[j][i].x * m3[1][0] + s[j][i].y * m3[1][1] + s[j][i].z * m3[2][1];
+			map->init[j][i].z = s[j][i].x * m3[2][0] + s[j][i].y * m3[2][1] + s[j][i].z * m3[2][2];
+			map->init[j][i].color = 0x00FF0000;
 			i++;
 		}
 		j++;

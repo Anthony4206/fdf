@@ -6,7 +6,7 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 08:03:49 by alevasse          #+#    #+#             */
-/*   Updated: 2022/06/10 08:37:37 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/07/08 11:35:22 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,17 @@ int	ft_abs(int j)
 	if (j < 0)
 		j *= -1;
 	return (j);
+}
+
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+	char	*dst;
+
+	if (x > 0 && x < WIN_WDT && y > 0 && y < WIN_HGT)
+	{
+		dst = data->addr + (y * data->line_len + x * (data->bpp / 8));
+		*(int *)dst = color;
+	}
 }
 
 int	rgb_to_int(double r, double g, double b)

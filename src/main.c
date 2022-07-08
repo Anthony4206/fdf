@@ -6,45 +6,47 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:17:30 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/06 13:13:16 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/07/08 13:39:13 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+int	ft_close(t_env *env)
 {
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
+	mlx_destroy_window(env->mlx, env->win);
+	exit (EXIT_FAILURE);
 }
 
-void	ft_draw_point(t_map *map)
+int	key_hook(int keycode, t_running *run)
 {
-	int	i;
-
-	i = 0;
-	ft_draw_lines(map);
-	mlx_put_image_to_window(&map->mlx, map->win, map->img.img, 0, 0);
+	ft_printf("Coucou %d\n", keycode);
+	if (keycode == 124)
+	{
+		run->map->offset_wdt += 50;
+		ft_draw_map(run);
+	}
+	return (0);
 }
 
 int	main(int argc, char **argv)
 {
-	t_map	*map;
-	char	*path;
+	t_running	run;
+	char		*path;
 
-	if (argc == 2)
-	{
-		path = argv[1];
-		map = ft_init_map(path);
-		map->img.img = mlx_new_image(map->mlx, 3000, 2000);
-		map->img.addr = mlx_get_data_addr(map->img.img,
-				&map->img.bits_per_pixel, &map->img.line_length,
-				&map->img.endian);
-		ft_draw_point(map);
-		mlx_loop(map->mlx);
-		return (0);
-	}
-	ft_printf("\n");
+	if (argc != 2)
+		exit (EXIT_FAILURE);
+	path = argv[1];
+	run.map = ft_init_map(path);
+	run.env.mlx = mlx_init();
+	run.env.win = mlx_new_window(run.env.mlx, WIN_WDT, WIN_HGT, "FDF");
+	run.env.img.img = mlx_new_image(run.env.mlx, 1980, 1080);
+	run.env.img.addr = mlx_get_data_addr(run.env.img.img, &run.env.img.bpp,
+			&run.env.img.line_len, &run.env.img.endian);
+	mlx_hook(run.env.win, 17, 0, ft_close, &run.env);
+	ft_draw_map(&run);
+	mlx_key_hook(run.env.win, key_hook, &run);
+	mlx_loop_hook(run.env.mlx, render_next_frame, YourStruct);
+	mlx_loop(run.env.mlx);
+	return (0);
 }

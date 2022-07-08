@@ -6,7 +6,7 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 07:39:45 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/06 13:10:37 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/07/08 10:57:02 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,8 @@
 # include <fcntl.h>
 # include <math.h>
 
-# define WIN_WDT 1920
-# define WIN_HGT 1080
-
-typedef struct s_quaternion
-{
-	double	w;
-	double	x;
-	double	y;
-	double	z;
-	double	cy;
-	double	sy;
-	double	cp;
-	double	sp;
-	double	cr;
-	double	sr;
-}			t_quaternion;
+# define WIN_WDT 1280
+# define WIN_HGT 800
 
 typedef struct s_bresenham
 {
@@ -54,29 +40,34 @@ typedef struct s_bresenham
 
 typedef struct s_point
 {
-	int	x;
-	int	y;
-	int	z;
-	int	w;
-	int	color;
-}		t_point;
+	double	x;
+	double	y;
+	double	z;
+	int		color;
+}			t_point;
 
 typedef struct s_data
 {
 	void	*img;
 	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
+	int		bpp;
+	int		line_len;
 	int		endian;
 }			t_data;
 
-typedef struct s_map
+typedef struct s_env
 {
 	void	*mlx;
 	void	*win;
-	t_point	**coord;
-	t_point	**rotate;
 	t_data	img;
+
+}			t_env;
+
+typedef struct s_map
+{
+	t_point	**parse;
+	t_point	**init;
+	t_point	**rotate;
 	int		x_origin;
 	int		y_origin;
 	int		offset_hgt;
@@ -91,21 +82,24 @@ typedef struct s_map
 	double	rz;
 }			t_map;
 
-/*typedef struct
+typedef struct s_running
 {
-	t_map	map;
-	
-}	t_runtime;*/
+	t_map	*map;
+	t_env	env;
+}			t_running;
 
 void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int				ft_abs(int j);
-void			ft_draw_point(t_map *map);
+void			ft_draw_map(t_running *run);
 t_map			*ft_init_map(char *path);
 void			ft_parse(int fd, char *path, char *line, t_map *map);
-void			ft_draw_lines(t_map *map);
+void			ft_draw_lines(t_running *run);
 t_bresenham		*ft_init_bresenham(t_point *pix1, t_point *pix2);
-t_quaternion	*ft_init_quaternion(double yaw, double pitch, double roll);
 void			ft_calculate_point(t_map *map, t_point **s);
 t_point			**ft_init_coord(t_map *map);
+double			**ft_alloc_matrix(void);
+double			**ft_matrix_rx(t_map *map);
+double			**ft_matrix_rz(t_map *map);
+double			**ft_multiply_matrix(double **rx, double **rz);
 
 #endif

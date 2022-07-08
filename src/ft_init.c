@@ -6,7 +6,7 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 11:42:05 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/06 11:45:36 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/07/08 13:18:29 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,26 +47,6 @@ static int	ft_count_hgt(int fd, char *line)
 	return (hgt);
 }
 
-t_quaternion	*ft_init_quaternion(double yaw, double pitch, double roll)
-{
-	t_quaternion	*q;
-
-	q = malloc(sizeof(t_quaternion));
-	if (!q)
-		exit (EXIT_FAILURE);
-	q->cy = cos(yaw * 0.5);
-	q->sy = sin(yaw * 0.5);
-	q->cp = cos(pitch * 0.5);
-	q->sp = sin(pitch * 0.5);
-	q->cr = cos(roll * 0.5);
-	q->sr = sin(roll * 0.5);
-	q->w = q->cr * q->cp * q->cy + q->sr * q->sp * q->sy;
-	q->x = q->sr * q->cp * q->cy - q->cr * q->sp * q->sy;
-	q->y = q->cr * q->sp * q->cy + q->sr * q->cp * q->sy;
-	q->z = q->cr * q->cp * q->sy - q->sr * q->sp * q->cy;
-	return (q);
-}
-
 t_bresenham	*ft_init_bresenham(t_point *pix1, t_point *pix2)
 {
 	t_bresenham	*ret;
@@ -95,10 +75,10 @@ t_point	**ft_init_coord(t_map *map)
 	int		i;
 
 	i = 0;
-	ret = ft_calloc(map->hgt + 1, sizeof(t_point *));
+	ret = ft_calloc(map->hgt, sizeof(t_point *));
 	while (i < map->hgt)
 	{
-		ret[i] = ft_calloc(map->wdt + 1, sizeof(t_point));
+		ret[i] = ft_calloc(map->wdt, sizeof(t_point));
 		i++;
 	}
 	return (ret);
@@ -113,8 +93,6 @@ t_map	*ft_init_map(char *path)
 	ret = malloc(sizeof(t_map));
 	if (!ret)
 		exit (EXIT_FAILURE);
-	ret->mlx = mlx_init();
-	ret->win = mlx_new_window(ret->mlx, WIN_WDT, WIN_HGT, "FDF alevasse");
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 		exit (EXIT_FAILURE);
@@ -123,16 +101,15 @@ t_map	*ft_init_map(char *path)
 	free (line);
 	ret->hgt = ft_count_hgt(fd, line);
 	close (fd);
-	ret->rx = 0.680678;
-	ret->ry = 0;
-	ret->rz = -0.785398;
 	ret->count = ret->wdt * ret->hgt;
-	ret->color = 0x00FF0000;
-	ret->x_origin = WIN_WDT / 2;
-	ret->y_origin = WIN_HGT / 2;
+	ret->rx = -0.680678;
+	ret->ry = 0;
+	ret->rz = 0.785398;
 	ret->space = 50;
-	ret->coord = ft_init_coord(ret);
-	ret->rotate = ft_init_coord(ret);
+	ret->parse = ft_init_coord(ret);
+	ret->init = ft_init_coord(ret);
+	ret->offset_hgt = 0;
+	ret->offset_wdt = 0;
 	ft_parse(fd, path, line, ret);
 	return (ret);
 }
