@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+         #
+#    By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/01 13:11:44 by alevasse          #+#    #+#              #
-#    Updated: 2022/07/06 12:52:13 by alevasse         ###   ########.fr        #
+#    Updated: 2022/07/10 18:23:59 by Anthony          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME 			= fdf
 NAME_B 			= fdf
 
 SRC 			= src/main.c src/ft_init.c src/ft_parse.c src/ft_utils.c \
-					src/ft_draw_line.c	src/ft_CG.c
+					src/ft_draw_line.c	src/ft_matrix.c
 
 SRC_B 			= 
 
@@ -23,7 +23,7 @@ OBJ_B 			= ${SRC_B:.c=.o}
 
 INCLUDE 		= -I./include/ -Imlx
 
-MLX				= -lmlx -framework OpenGL -framework AppKit
+MLX				= -Lmlx -lmlx -framework OpenGL -framework AppKit
 
 HEAD			=
 					

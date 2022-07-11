@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_CG.c                                            :+:      :+:    :+:   */
+/*   ft_matrix.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 07:22:48 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/08 11:18:22 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/07/10 18:23:28 by Anthony          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,25 @@ double	**ft_matrix_rx(t_map *map)
 	ret[2][0] = 0;
 	ret[2][1] = sin(map->rx);
 	ret[2][2] = cos(map->rx);
+	return (ret);
+}
+
+double	**ft_matrix_ry(t_map *map)
+{
+	double	**ret;
+
+	ret = ft_alloc_matrix();
+	if (!ret)
+		exit (EXIT_FAILURE);
+	ret[0][0] = cos(map->ry);
+	ret[0][1] = 0;
+	ret[0][2] = sin(map->ry);
+	ret[1][0] = 0;
+	ret[1][1] = 1;
+	ret[1][2] = 0;
+	ret[2][0] = -sin(map->ry);
+	ret[2][1] = 0;
+	ret[2][2] = cos(map->ry);
 	return (ret);
 }
 
@@ -89,16 +108,38 @@ double	**ft_multiply_matrix(double **rx, double **rz)
 	return (ret);
 }
 
-void	ft_calculate_point(t_map *map, t_point **s)
+double	**ft_matrix_euler(t_map *map)
+{
+	double	**ret;
+
+	ret = ft_alloc_matrix();
+	if (!ret)
+		exit (EXIT_FAILURE);
+	ret[0][0] = cos(map->rz) * cos(map->ry);
+	ret[0][1] = (cos(map->rz) * sin(map->ry) * sin(map->rx)) - (sin(map->rz) * cos(map->rx));
+	ret[0][2] = (cos(map->rz) * sin(map->ry) * cos(map->rx)) + (sin(map->rz) * sin(map->rx));
+	ret[1][0] = sin(map->rz) * cos(map->ry);
+	ret[1][1] = (sin(map->rz) * sin(map->ry) * sin(map->rx)) - (cos(map->rz) * cos(map->rx));
+	ret[1][2] = (sin(map->rz) * sin(map->ry) * cos(map->rx)) - (cos(map->rz) * sin(map->rx));
+	ret[2][0] = -sin(map->ry);
+	ret[2][1] = cos(map->ry) * sin(map->rx);
+	ret[2][2] = cos(map->ry) * cos(map->rx);
+	return (ret);
+}
+
+void	ft_calculate_point(t_map *map, t_point **p)
 {
 	int		i;
 	int		j;
 	double	**rx;
+//	double	**ry;
 	double	**rz;
 	double	**m3;
 
 	rx = ft_matrix_rx(map);
+//	ry = ft_matrix_ry(map);
 	rz = ft_matrix_rz(map);
+//	m3 = ft_matrix_euler(map);
 	m3 = ft_multiply_matrix(rx, rz);
 	j = 0;
 	while (j < map->hgt)
@@ -106,9 +147,9 @@ void	ft_calculate_point(t_map *map, t_point **s)
 		i = 0;
 		while (i < map->wdt)
 		{
-			map->init[j][i].x = s[j][i].x * m3[0][0] + s[j][i].y * m3[0][1] + s[j][i].z * m3[0][2];
-			map->init[j][i].y = s[j][i].x * m3[1][0] + s[j][i].y * m3[1][1] + s[j][i].z * m3[2][1];
-			map->init[j][i].z = s[j][i].x * m3[2][0] + s[j][i].y * m3[2][1] + s[j][i].z * m3[2][2];
+			map->init[j][i].x = p[j][i].x * m3[0][0] + p[j][i].y * m3[0][1] + p[j][i].z * m3[0][2];
+			map->init[j][i].y = p[j][i].x * m3[1][0] + p[j][i].y * m3[1][1] + p[j][i].z * m3[2][1];
+			map->init[j][i].z = p[j][i].x * m3[2][0] + p[j][i].y * m3[2][1] + p[j][i].z * m3[2][2];
 			map->init[j][i].color = 0x00FF0000;
 			i++;
 		}

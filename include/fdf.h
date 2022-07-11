@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 07:39:45 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/08 10:57:02 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/07/10 19:09:39 by Anthony          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ typedef struct s_running
 
 void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int				ft_abs(int j);
-void			ft_draw_map(t_running *run);
+int				ft_draw_map(t_running *run);
 t_map			*ft_init_map(char *path);
 void			ft_parse(int fd, char *path, char *line, t_map *map);
 void			ft_draw_lines(t_running *run);
@@ -99,7 +99,9 @@ void			ft_calculate_point(t_map *map, t_point **s);
 t_point			**ft_init_coord(t_map *map);
 double			**ft_alloc_matrix(void);
 double			**ft_matrix_rx(t_map *map);
+double			**ft_matrix_ry(t_map *map);
 double			**ft_matrix_rz(t_map *map);
+double			**ft_matrix_euler(t_map *map);
 double			**ft_multiply_matrix(double **rx, double **rz);
 
 #endif
