@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_draw_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 07:39:23 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/10 22:15:12 by Anthony          ###   ########.fr       */
+/*   Updated: 2022/07/11 09:54:56 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,14 +100,11 @@ void	ft_push_line(t_running *run, t_point *pix1, t_point *pix2,
 
 int	ft_draw_map(t_running *run)
 {
-	run->env.img.img = mlx_new_image(run->env.mlx, 1280, 800);
-	run->env.img.addr = mlx_get_data_addr(run->env.img.img, &run->env.img.bpp,
-			&run->env.img.line_len, &run->env.img.endian);
-//	ft_bzero(run->env.img.addr, 1280 * 1080 * 2);
+	ft_bzero(run->env.img.addr, WIN_WDT * WIN_HGT * 4);
 	ft_draw_lines(run);
 	mlx_put_image_to_window(&run->env.mlx, run->env.win,
 		run->env.img.img, 0, 0);
-		return (0);
+	return (0);
 }
 
 void	ft_draw_lines(t_running *run)
@@ -117,7 +114,6 @@ void	ft_draw_lines(t_running *run)
 	int			j;
 
 	ft_calculate_point(run->map, run->map->parse);
-
 	j = 0;
 	while (j < run->map->hgt)
 	{

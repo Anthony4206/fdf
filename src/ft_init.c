@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 11:42:05 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/10 18:48:13 by Anthony          ###   ########.fr       */
+/*   Updated: 2022/07/11 11:56:50 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ t_map	*ft_init_map(char *path)
 	ret->rx = -0.959931;
 	ret->ry = 0;
 	ret->rz = 0.785398;
-	ret->space = 50;
+	ret->space = ft_compute_size(ret);
 	ret->parse = ft_init_coord(ret);
 	ret->init = ft_init_coord(ret);
 	ret->offset_hgt = 100;

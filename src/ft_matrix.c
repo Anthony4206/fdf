@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_matrix.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 07:22:48 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/10 18:23:28 by Anthony          ###   ########.fr       */
+/*   Updated: 2022/07/11 08:16:12 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ void	ft_calculate_point(t_map *map, t_point **p)
 		while (i < map->wdt)
 		{
 			map->init[j][i].x = p[j][i].x * m3[0][0] + p[j][i].y * m3[0][1] + p[j][i].z * m3[0][2];
-			map->init[j][i].y = p[j][i].x * m3[1][0] + p[j][i].y * m3[1][1] + p[j][i].z * m3[2][1];
+			map->init[j][i].y = p[j][i].x * m3[1][0] + p[j][i].y * m3[1][1] + p[j][i].z * m3[1][2];
 			map->init[j][i].z = p[j][i].x * m3[2][0] + p[j][i].y * m3[2][1] + p[j][i].z * m3[2][2];
 			map->init[j][i].color = 0x00FF0000;
 			i++;

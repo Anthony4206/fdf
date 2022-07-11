@@ -6,7 +6,7 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 10:18:28 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/08 12:18:16 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/07/11 11:42:28 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ void	ft_parse(int fd, char *path, char *line, t_map *map)
 		k = 0;
 		while (i < map->wdt && line[k])
 		{
-			map->parse[j][i].x = i * ft_compute_size(map);
-			map->parse[j][i].y = j * ft_compute_size(map);
-			map->parse[j][i].z = ft_atoi(line + k) * 7;
+			map->parse[j][i].x = i * map->space;
+			map->parse[j][i].y = j * map->space;
+			map->parse[j][i].z = -ft_atoi(line + k) * 7;
 			map->parse[j][i].color = 0x00FF0000;
 			ft_next_atoi(line, &k);
 			i++;
