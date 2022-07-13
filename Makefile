@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+         #
+#    By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/01 13:11:44 by alevasse          #+#    #+#              #
-#    Updated: 2022/07/11 07:20:25 by alevasse         ###   ########.fr        #
+#    Updated: 2022/07/11 12:03:52 by Anthony          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ OBJ_B 			= ${SRC_B:.c=.o}
 
 INCLUDE 		= -I./include/ -Imlx
 
-MLX				= -lmlx -framework OpenGL -framework AppKit
+MLX				= -Lmlx -lmlx -framework OpenGL -framework AppKit
 
 HEAD			=
 					

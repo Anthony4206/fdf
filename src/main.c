@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:17:30 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/11 11:57:21 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/07/12 20:51:03 by Anthony          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,32 +30,53 @@ int	key_hook(int keycode, t_running *run)
 	if (keycode == 126 && run->map->offset_hgt > -200)
 		run->map->offset_hgt -= 50;
 	if (keycode == 0)
-		run->map->rz += 0.0174533;
+		run->map->r = ft_multiply_matrix(run->map->ri, ft_matrix_rz(0.0174533));
 	if (keycode == 1)
-		run->map->rx += 0.0174533;
+		run->map->r = ft_multiply_matrix(ft_matrix_rx(0.0174533), run->map->ri);
 	if (keycode == 2)
-		run->map->rz -= 0.0174533;
+		run->map->r = ft_multiply_matrix(run->map->ri, ft_matrix_rz(-0.0174533));
 	if (keycode == 13)
-		run->map->rx -= 0.0174533;
-	if (keycode == 15)
-		run->map->space += 2;
-	if (keycode == 3)
-		run->map->space -= 2;
-	ft_draw_map(run);
+		run->map->r = ft_multiply_matrix(ft_matrix_rx(-0.0174533), run->map->ri);
+	if (keycode == 0 || keycode == 1 || keycode == 2 || keycode == 13)
+		run->map->ri = run->map->r;
+	if (keycode == 7)
+	{
+		ft_zoom(run, 1.2);
+		printf("%f | %f...\n", run->map->v[6][6].x, run->map->v[6][6].y);
+	}
+	if (keycode == 6)
+		ft_zoom(run, 0.8);
 	return (0);
+}
+
+void	ft_zoom(t_running *run, float coef)
+{
+	int		i;
+	int		j;
+
+	j = 0;
+	printf("Coucou%d\n", run->map->hgt);
+	while (j < run->map->hgt)
+	{
+		i = 0;
+		while (i < run->map->wdt)
+		{
+			run->map->v[j][i].x *= coef;
+			run->map->v[j][i].y *= coef;
+			run->map->v[j][i].z *= coef;
+			i++;
+		}
+		j++;
+	}
 }
 
 int	mouse_hook(int keycode, t_running *run)
 {
-	(void) run;
-	printf("%d...\n", keycode);
+	printf("%d...%d\n", keycode, run->map->hgt);
 	if (keycode == 4)
-		run->map->space += 2;
-	if (keycode == 5) {
-		printf("lol\n");
-	}
-//		run->map->space -= 2;
-	//ft_draw_map(run);
+		ft_zoom(run, 1.2);
+	if (keycode == 5)
+		ft_zoom(run, 0.8);
 	return (0);
 }
 

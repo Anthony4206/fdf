@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_draw_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 07:39:23 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/11 09:54:56 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/07/12 08:51:09 by Anthony          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,14 +113,14 @@ void	ft_draw_lines(t_running *run)
 	int			i;
 	int			j;
 
-	ft_calculate_point(run->map, run->map->parse);
+	ft_calculate_point(run->map, run->map->ri, run->map->vo);
 	j = 0;
 	while (j < run->map->hgt)
 	{
 		i = -1;
 		while (++i < (run->map->wdt - 1))
-			ft_push_line(run, &run->map->init[j][i],
-				&run->map->init[j][i + 1], &line);
+			ft_push_line(run, &run->map->v[j][i],
+				&run->map->v[j][i + 1], &line);
 		j++;
 	}
 	j = 0;
@@ -128,8 +128,8 @@ void	ft_draw_lines(t_running *run)
 	{
 		i = -1;
 		while (++i < (run->map->wdt))
-			ft_push_line(run, &run->map->init[j][i],
-				&run->map->init[j + 1][i], &line);
+			ft_push_line(run, &run->map->v[j][i],
+				&run->map->v[j + 1][i], &line);
 		j++;
 	}
 }

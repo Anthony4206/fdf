@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 11:42:05 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/11 11:56:50 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/07/12 14:47:01 by Anthony          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_map	*ft_init_map(char *path)
 	char	*line;
 	int		fd;
 	t_map	*ret;
-
+ 
 	ret = malloc(sizeof(t_map));
 	if (!ret)
 		exit (EXIT_FAILURE);
@@ -102,12 +102,14 @@ t_map	*ft_init_map(char *path)
 	ret->hgt = ft_count_hgt(fd, line);
 	close (fd);
 	ret->count = ret->wdt * ret->hgt;
-	ret->rx = -0.959931;
-	ret->ry = 0;
-	ret->rz = 0.785398;
+	ret->mx = ft_matrix_rx(0.959931);
+	ret->my = 0;
+	ret->mz = ft_matrix_rz(0.785398);
 	ret->space = ft_compute_size(ret);
-	ret->parse = ft_init_coord(ret);
-	ret->init = ft_init_coord(ret);
+	ret->vo = ft_init_coord(ret);
+	ret->v = ft_init_coord(ret);
+	ret->ri = ft_multiply_matrix(ret->mx, ret->mz);
+	ret->r = ft_alloc_matrix();
 	ret->offset_hgt = 100;
 	ret->offset_wdt = 250;
 	ft_parse(fd, path, line, ret);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 07:39:45 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/11 11:37:44 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/07/12 17:34:01 by Anthony          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,11 @@ typedef struct s_env
 
 typedef struct s_map
 {
-	t_point	**parse;
-	t_point	**init;
+	t_point	**vo;
+	t_point	**v;
 	t_point	**rotate;
+	double	**ri;
+	double	**r;
 	int		x_origin;
 	int		y_origin;
 	int		offset_hgt;
@@ -77,9 +79,9 @@ typedef struct s_map
 	int		count;
 	int		color;
 	int		space;
-	double	rx;
-	double	ry;
-	double	rz;
+	double	**mx;
+	double	**my;
+	double	**mz;
 }			t_map;
 
 typedef struct s_running
@@ -95,15 +97,15 @@ t_map			*ft_init_map(char *path);
 void			ft_parse(int fd, char *path, char *line, t_map *map);
 void			ft_draw_lines(t_running *run);
 t_bresenham		*ft_init_bresenham(t_point *pix1, t_point *pix2);
-void			ft_calculate_point(t_map *map, t_point **s);
+void			ft_calculate_point(t_map *map, double **r, t_point **p);
 t_point			**ft_init_coord(t_map *map);
 double			**ft_alloc_matrix(void);
-double			**ft_matrix_rx(t_map *map);
-double			**ft_matrix_ry(t_map *map);
-double			**ft_matrix_rz(t_map *map);
+double			**ft_matrix_rx(double radian);
+double			**ft_matrix_rz(double radian);
 double			**ft_matrix_euler(t_map *map);
 double			**ft_multiply_matrix(double **rx, double **rz);
 double			ft_compute_size(t_map *map);
 int				mouse_hook(int keycode, t_running *run);
+void			ft_zoom(t_running *run, float coef);
 
 #endif
