@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:17:30 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/12 20:51:03 by Anthony          ###   ########.fr       */
+/*   Updated: 2022/07/13 13:41:37 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,22 @@ int	key_hook(int keycode, t_running *run)
 	if (keycode == 126 && run->map->offset_hgt > -200)
 		run->map->offset_hgt -= 50;
 	if (keycode == 0)
-		run->map->r = ft_multiply_matrix(run->map->ri, ft_matrix_rz(0.0174533));
+		run->map->r = ft_multiply_matrix(run->map->ri, ft_matrix_rz(0.0872665));
 	if (keycode == 1)
-		run->map->r = ft_multiply_matrix(ft_matrix_rx(0.0174533), run->map->ri);
+		run->map->r = ft_multiply_matrix(ft_matrix_rx(0.0872665), run->map->ri);
 	if (keycode == 2)
-		run->map->r = ft_multiply_matrix(run->map->ri, ft_matrix_rz(-0.0174533));
+		run->map->r = ft_multiply_matrix(run->map->ri, ft_matrix_rz(-0.0872665));
 	if (keycode == 13)
-		run->map->r = ft_multiply_matrix(ft_matrix_rx(-0.0174533), run->map->ri);
+		run->map->r = ft_multiply_matrix(ft_matrix_rx(-0.0872665), run->map->ri);
 	if (keycode == 0 || keycode == 1 || keycode == 2 || keycode == 13)
 		run->map->ri = run->map->r;
 	if (keycode == 7)
 	{
-		ft_zoom(run, 1.2);
-		printf("%f | %f...\n", run->map->v[6][6].x, run->map->v[6][6].y);
+		ft_zoom(run, 3);
+		printf("%f | %f...\n", run->map->vo[6][6].x, run->map->vo[6][6].y);
 	}
 	if (keycode == 6)
-		ft_zoom(run, 0.8);
+		ft_zoom(run, 0.9);
 	return (0);
 }
 
@@ -61,24 +61,24 @@ void	ft_zoom(t_running *run, float coef)
 		i = 0;
 		while (i < run->map->wdt)
 		{
-			run->map->v[j][i].x *= coef;
-			run->map->v[j][i].y *= coef;
-			run->map->v[j][i].z *= coef;
+			run->map->vo[j][i].x *= coef;
+			run->map->vo[j][i].y *= coef;
+			run->map->vo[j][i].z *= coef;
 			i++;
 		}
 		j++;
 	}
 }
 
-int	mouse_hook(int keycode, t_running *run)
+/*int	mouse_hook(int keycode, t_running *run)
 {
 	printf("%d...%d\n", keycode, run->map->hgt);
 	if (keycode == 4)
-		ft_zoom(run, 1.2);
+		ft_zoom(run, 0);
 	if (keycode == 5)
-		ft_zoom(run, 0.8);
+		ft_zoom(run, 0);
 	return (0);
-}
+}*/
 
 int	main(int argc, char **argv)
 {
@@ -94,9 +94,8 @@ int	main(int argc, char **argv)
 	run.env.img.img = mlx_new_image(run.env.mlx, WIN_WDT, WIN_HGT);
 	run.env.img.addr = mlx_get_data_addr(run.env.img.img, &run.env.img.bpp,
 			&run.env.img.line_len, &run.env.img.endian);
-
 	mlx_hook(run.env.win, 2, 1L << 0, key_hook, &run);
-	mlx_mouse_hook(run.env.win, mouse_hook, &run);
+//	mlx_mouse_hook(run.env.win, mouse_hook, &run);
 	ft_draw_map(&run);
 	mlx_loop_hook(run.env.mlx, ft_draw_map, &run);
 	mlx_hook(run.env.win, 17, 0, ft_close, &run.env);

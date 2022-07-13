@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 07:39:45 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/12 17:34:01 by Anthony          ###   ########.fr       */
+/*   Updated: 2022/07/13 08:50:15 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ double			**ft_matrix_rz(double radian);
 double			**ft_matrix_euler(t_map *map);
 double			**ft_multiply_matrix(double **rx, double **rz);
 double			ft_compute_size(t_map *map);
-int				mouse_hook(int keycode, t_running *run);
+//int				mouse_hook(int keycode, t_running *run);
 void			ft_zoom(t_running *run, float coef);
 
 #endif

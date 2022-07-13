@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_matrix.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 07:22:48 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/12 08:31:13 by Anthony          ###   ########.fr       */
+/*   Updated: 2022/07/13 13:07:07 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	ft_calculate_point(t_map *map, double **r, t_point **p)
 {
 	int		i;
 	int		j;
+
 	j = 0;
 	while (j < map->hgt)
 	{
@@ -102,7 +103,7 @@ void	ft_calculate_point(t_map *map, double **r, t_point **p)
 			map->v[j][i].x = p[j][i].x * r[0][0] + p[j][i].y * r[0][1] + p[j][i].z * r[0][2];
 			map->v[j][i].y = p[j][i].x * r[1][0] + p[j][i].y * r[1][1] + p[j][i].z * r[1][2];
 			map->v[j][i].z = p[j][i].x * r[2][0] + p[j][i].y * r[2][1] + p[j][i].z * r[2][2];
-			map->v[j][i].color = 0x00FF0000;
+			map->v[j][i].color = 0xff;
 			i++;
 		}
 		j++;

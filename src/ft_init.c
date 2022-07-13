@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 11:42:05 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/12 14:47:01 by Anthony          ###   ########.fr       */
+/*   Updated: 2022/07/13 06:57:16 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_map	*ft_init_map(char *path)
 	char	*line;
 	int		fd;
 	t_map	*ret;
- 
+
 	ret = malloc(sizeof(t_map));
 	if (!ret)
 		exit (EXIT_FAILURE);

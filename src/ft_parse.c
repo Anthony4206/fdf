@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 10:18:28 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/12 09:27:59 by Anthony          ###   ########.fr       */
+/*   Updated: 2022/07/13 13:18:53 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ double	ft_compute_size(t_map *map)
 	else
 		return (ret_wdt);
 }
+
+/*void	ft_parse_color(t_map *map)
+{
+	
+}*/
 
 void	ft_parse(int fd, char *path, char *line, t_map *map)
 {
