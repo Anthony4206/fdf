@@ -6,7 +6,7 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 11:42:05 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/13 06:57:16 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/07/20 13:41:45 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,49 @@ t_point	**ft_init_coord(t_map *map)
 	return (ret);
 }
 
+int	ft_middle(t_map *map, int opts)
+{
+	int	ret;
+
+	ret = 0;
+	if (opts)
+		ret = map->x_origin - (map->v[map->hgt / 2][map->wdt / 2].x - map->v[0][0].x);
+	else
+		ret = map->y_origin - (map->v[map->hgt / 2][map->wdt / 2].y - map->v[0][0].y);
+	return (ret);
+}
+
+int	ft_add_color(t_map *map, double z)
+{
+	double	coef;
+
+	if (z >= 0)
+		coef = -(128 / map->max_z);
+	else
+		coef = (128 / map->min_z);
+	return (ft_create_trgb(0, 255, 128 + (coef * z), 0));
+}
+
+void	ft_init_color(t_map *map)
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	i = 0;
+	while (j < map->hgt)
+	{
+		i = 0;
+		while (i < map->wdt)
+		{
+			if (map->vo[j][i].color == -1)
+				map->vo[j][i].color = ft_add_color(map, map->vo[j][i].z);
+			i++;
+		}
+		j++;
+	}
+}
+
 t_map	*ft_init_map(char *path)
 {
 	char	*line;
@@ -102,9 +145,14 @@ t_map	*ft_init_map(char *path)
 	ret->hgt = ft_count_hgt(fd, line);
 	close (fd);
 	ret->count = ret->wdt * ret->hgt;
+	ret->x_origin = WIN_WDT / 2;
+	ret->y_origin = WIN_HGT / 2;
+	ret->min_z = 0;
+	ret->max_z = 0;
 	ret->mx = ft_matrix_rx(0.959931);
 	ret->my = 0;
 	ret->mz = ft_matrix_rz(0.785398);
+	ret->cone = 0;
 	ret->space = ft_compute_size(ret);
 	ret->vo = ft_init_coord(ret);
 	ret->v = ft_init_coord(ret);
@@ -113,5 +161,8 @@ t_map	*ft_init_map(char *path)
 	ret->offset_hgt = 100;
 	ret->offset_wdt = 250;
 	ft_parse(fd, path, line, ret);
+	ret->alt = ft_altitude(ret);
+	ft_init_color(ret);
+	ft_add_z(ret);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:17:30 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/13 13:41:37 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/07/20 12:56:33 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,31 +21,35 @@ int	ft_close(t_env *env)
 int	key_hook(int keycode, t_running *run)
 {
 	ft_printf("%d\n", keycode);
-	if (keycode == 123 && run->map->offset_wdt > -200)
-		run->map->offset_wdt -= 50;
-	if (keycode == 124 && run->map->offset_wdt < 1000)
-		run->map->offset_wdt += 50;
-	if (keycode == 125 && run->map->offset_hgt < 1000)
-		run->map->offset_hgt += 50;
-	if (keycode == 126 && run->map->offset_hgt > -200)
-		run->map->offset_hgt -= 50;
+	if (keycode == 123)
+		run->map->x_origin -= 50;
+	if (keycode == 124)
+		run->map->x_origin += 50;
+	if (keycode == 125)
+		run->map->y_origin += 50;
+	if (keycode == 126)
+		run->map->y_origin -= 50;
 	if (keycode == 0)
-		run->map->r = ft_multiply_matrix(run->map->ri, ft_matrix_rz(0.0872665));
+		run->map->r = ft_multiply_matrix(run->map->ri, ft_matrix_rz(0.0974533));
 	if (keycode == 1)
-		run->map->r = ft_multiply_matrix(ft_matrix_rx(0.0872665), run->map->ri);
+		run->map->r = ft_multiply_matrix(ft_matrix_rx(0.0974533), run->map->ri);
 	if (keycode == 2)
-		run->map->r = ft_multiply_matrix(run->map->ri, ft_matrix_rz(-0.0872665));
+		run->map->r = ft_multiply_matrix(run->map->ri, ft_matrix_rz(-0.0974533));
+	if (keycode == 12)
+		run->map->r = ft_multiply_matrix(ft_matrix_ry(-0.0974533), run->map->ri);
 	if (keycode == 13)
-		run->map->r = ft_multiply_matrix(ft_matrix_rx(-0.0872665), run->map->ri);
-	if (keycode == 0 || keycode == 1 || keycode == 2 || keycode == 13)
+		run->map->r = ft_multiply_matrix(ft_matrix_rx(-0.0974533), run->map->ri);
+	if (keycode == 14)
+		run->map->r = ft_multiply_matrix(ft_matrix_ry(0.0974533), run->map->ri);
+	if (keycode == 0 || keycode == 1 || keycode == 2 || keycode == 12
+		|| keycode == 13 || keycode == 14)
 		run->map->ri = run->map->r;
 	if (keycode == 7)
-	{
-		ft_zoom(run, 3);
-		printf("%f | %f...\n", run->map->vo[6][6].x, run->map->vo[6][6].y);
-	}
+		ft_zoom(run, 1.1);
 	if (keycode == 6)
 		ft_zoom(run, 0.9);
+	if (keycode == 8)
+		run->map->cone = 1;
 	return (0);
 }
 
@@ -55,7 +59,6 @@ void	ft_zoom(t_running *run, float coef)
 	int		j;
 
 	j = 0;
-	printf("Coucou%d\n", run->map->hgt);
 	while (j < run->map->hgt)
 	{
 		i = 0;
@@ -69,16 +72,6 @@ void	ft_zoom(t_running *run, float coef)
 		j++;
 	}
 }
-
-/*int	mouse_hook(int keycode, t_running *run)
-{
-	printf("%d...%d\n", keycode, run->map->hgt);
-	if (keycode == 4)
-		ft_zoom(run, 0);
-	if (keycode == 5)
-		ft_zoom(run, 0);
-	return (0);
-}*/
 
 int	main(int argc, char **argv)
 {

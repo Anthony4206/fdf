@@ -1,31 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*   ft_color.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/10 08:03:49 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/20 12:09:14 by alevasse         ###   ########.fr       */
+/*   Created: 2022/07/18 06:33:57 by alevasse          #+#    #+#             */
+/*   Updated: 2022/07/20 12:23:14 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	ft_abs(int j)
+int	ft_put_color(t_point *pix1, t_point *pix2, float pct)
 {
-	if (j < 0)
-		j *= -1;
-	return (j);
-}
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
-
-	if (x > 0 && x < WIN_WDT && y > 0 && y < WIN_HGT)
-	{
-		dst = data->addr + (y * data->line_len + x * (data->bpp / 8));
-		*(int *)dst = color;
-	}
+	return (ft_create_trgb(0,
+			degrad(get_r(pix1->color), get_r(pix2->color), pct),
+			degrad(get_g(pix1->color), get_g(pix2->color), pct),
+			degrad(get_b(pix1->color), get_b(pix2->color), pct)));
 }

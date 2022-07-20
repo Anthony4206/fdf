@@ -6,7 +6,7 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 07:39:45 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/13 08:50:15 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/07/20 12:54:06 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include <fcntl.h>
 # include <math.h>
 
-# define WIN_WDT 1280
-# define WIN_HGT 800
+# define WIN_WDT 900
+# define WIN_HGT 600
 
 typedef struct s_bresenham
 {
@@ -70,8 +70,12 @@ typedef struct s_map
 	t_point	**rotate;
 	double	**ri;
 	double	**r;
+	t_point	**save;
 	int		x_origin;
 	int		y_origin;
+	int		min_z;
+	int		max_z;
+	int		alt;
 	int		offset_hgt;
 	int		offset_wdt;
 	int		wdt;
@@ -79,6 +83,7 @@ typedef struct s_map
 	int		count;
 	int		color;
 	int		space;
+	int		cone;
 	double	**mx;
 	double	**my;
 	double	**mz;
@@ -101,11 +106,33 @@ void			ft_calculate_point(t_map *map, double **r, t_point **p);
 t_point			**ft_init_coord(t_map *map);
 double			**ft_alloc_matrix(void);
 double			**ft_matrix_rx(double radian);
+double			**ft_matrix_ry(double radian);
 double			**ft_matrix_rz(double radian);
-double			**ft_matrix_euler(t_map *map);
 double			**ft_multiply_matrix(double **rx, double **rz);
 double			ft_compute_size(t_map *map);
-//int				mouse_hook(int keycode, t_running *run);
+int				ft_htoi(const char *str);
 void			ft_zoom(t_running *run, float coef);
+int				ft_middle(t_map *map, int opts);
+void			ft_add_z(t_map *map);
+int				ft_altitude(t_map *map);
+void			ft_init_color(t_map *map);
+int				ft_add_color(t_map *map, double z);
+int				ft_put_color(t_point *pix1, t_point *pix2, float pct);
+void			ft_change_coord(t_map *map);
+// color
+int				ft_put_color(t_point *pix1, t_point *pix2, float pct);
+// bresenham
+void			ft_first_condition(t_running *run, t_point *pix1, t_point *pix2,
+					t_bresenham *line);
+void			ft_second_condition(t_running *run, t_point *pix1,
+					t_point *pix2, t_bresenham *line);
+void			ft_exeption(t_running *run, t_point *pix1, t_point *pix2,
+					t_bresenham *line);
+// color utils
+int				ft_create_trgb(int t, int r, int g, int b);
+int				get_r(int trgb);
+int				get_g(int trgb);
+int				get_b(int trgb);
+int				degrad(int c1, int c2, float pct);
 
 #endif

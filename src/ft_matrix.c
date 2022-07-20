@@ -6,7 +6,7 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 07:22:48 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/13 13:07:07 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/07/20 13:34:34 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,25 @@ double	**ft_matrix_rx(double radian)
 	ret[1][2] = -sin(radian);
 	ret[2][0] = 0;
 	ret[2][1] = sin(radian);
+	ret[2][2] = cos(radian);
+	return (ret);
+}
+
+double	**ft_matrix_ry(double radian)
+{
+	double	**ret;
+
+	ret = ft_alloc_matrix();
+	if (!ret)
+		exit (EXIT_FAILURE);
+	ret[0][0] = cos(radian);
+	ret[0][1] = 0;
+	ret[0][2] = sin(radian);
+	ret[1][0] = 0;
+	ret[1][1] = 1;
+	ret[1][2] = 0;
+	ret[2][0] = -sin(radian);
+	ret[2][1] = 0;
 	ret[2][2] = cos(radian);
 	return (ret);
 }
@@ -89,21 +108,49 @@ double	**ft_multiply_matrix(double **m1, double **m2)
 	return (ret);
 }
 
-void	ft_calculate_point(t_map *map, double **r, t_point **p)
+/*void	ft_change_coord(t_map *map)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
+	int	p;
 
+	p = 100;
 	j = 0;
 	while (j < map->hgt)
 	{
 		i = 0;
 		while (i < map->wdt)
 		{
-			map->v[j][i].x = p[j][i].x * r[0][0] + p[j][i].y * r[0][1] + p[j][i].z * r[0][2];
-			map->v[j][i].y = p[j][i].x * r[1][0] + p[j][i].y * r[1][1] + p[j][i].z * r[1][2];
-			map->v[j][i].z = p[j][i].x * r[2][0] + p[j][i].y * r[2][1] + p[j][i].z * r[2][2];
-			map->v[j][i].color = 0xff;
+			map->v[j][i].x *= p / (p - map->v[j][i].z);
+			map->v[j][i].y *= p / (p - map->v[j][i].z);
+			i++;
+		}
+		j++;
+	}
+}*/
+
+void	ft_calculate_point(t_map *map, double **r, t_point **vo)
+{
+	int		i;
+	int		j;
+	int		p;
+
+	p = map->space * 30;
+	j = 0;
+	while (j < map->hgt)
+	{
+		i = 0;
+		while (i < map->wdt)
+		{
+			map->v[j][i].x = vo[j][i].x * r[0][0] + vo[j][i].y * r[0][1] + vo[j][i].z * r[0][2];
+			map->v[j][i].y = vo[j][i].x * r[1][0] + vo[j][i].y * r[1][1] + vo[j][i].z * r[1][2];
+			map->v[j][i].z = vo[j][i].x * r[2][0] + vo[j][i].y * r[2][1] + vo[j][i].z * r[2][2];
+			if (map->cone)
+			{
+				map->v[j][i].x *= p / (p - map->v[j][i].z);
+				map->v[j][i].y *= p / (p - map->v[j][i].z);
+			}
+			map->v[j][i].color = map->vo[j][i].color;
 			i++;
 		}
 		j++;
