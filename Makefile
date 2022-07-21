@@ -6,7 +6,7 @@
 #    By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/01 13:11:44 by alevasse          #+#    #+#              #
-#    Updated: 2022/07/21 16:12:43 by Anthony          ###   ########.fr        #
+#    Updated: 2022/07/21 23:01:03 by Anthony          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ HEAD			=
 LIBS 			= ./libft/
 				
 CC 				= gcc -g
-CFLAGS 			= -Wall -Wextra -Werror #-fsanitize=address
+CFLAGS 			= -Wall -Wextra -Werror -fsanitize=address
 
 AR 				= ar rcs
 RM 				= rm -f

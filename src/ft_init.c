@@ -6,7 +6,7 @@
 /*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 11:42:05 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/21 15:19:14 by Anthony          ###   ########.fr       */
+/*   Updated: 2022/07/21 22:59:49 by Anthony          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_brez	*ft_init_brez(t_pt *pix1, t_pt *pix2)
 	return (ret);
 }
 
-void	ft_init_color(t_map *map)
+void	ft_init_color(t_map *map, t_geo *geo)
 {
 	int	i;
 	int	j;
@@ -45,12 +45,37 @@ void	ft_init_color(t_map *map)
 		i = 0;
 		while (i < map->wdt)
 		{
-			if (map->vo[j][i].color == -1)
-				map->vo[j][i].color = ft_add_color(map, map->vo[j][i].z);
+			if (geo->vo[j][i].color == -1)
+				geo->vo[j][i].color = ft_add_color(map, geo->vo[j][i].z);
 			i++;
 		}
 		j++;
 	}
+}
+
+t_geo	*ft_init_geo(t_map *map)
+{
+	t_geo	*ret;
+
+	ret = malloc(sizeof(t_map));
+	if (!ret)
+		exit (EXIT_FAILURE);
+	ret->mx = ft_matrix_rx(0.959931);
+	ret->my = 0;
+	ret->mz = ft_matrix_rz(0.785398);
+	ret->ri = ft_multiply_matrix(ret->mx, ret->mz);
+	ret->r = ft_alloc_matrix();
+	ret->vo = ft_alloc_coord(map);
+	ret->v = ft_alloc_coord(map);	
+	return (ret);
+}
+
+void	ft_init_size(int fd, char *line, t_map *map)
+{
+	map->wdt = ft_count_wdt(line);
+	free (line);
+	map->hgt = ft_count_hgt(fd, line);
+	close (fd);
 }
 
 t_map	*ft_init_map(char *path)
@@ -66,29 +91,18 @@ t_map	*ft_init_map(char *path)
 	if (fd == -1)
 		exit (EXIT_FAILURE);
 	line = get_next_line(fd);
-	ret->wdt = ft_count_wdt(line);
-	free (line);
-	ret->hgt = ft_count_hgt(fd, line);
-	close (fd);
+	ft_init_size(fd, line, ret);
 	ret->count = ret->wdt * ret->hgt;
 	ret->x_origin = WIN_WDT / 2;
 	ret->y_origin = WIN_HGT / 2;
 	ret->min_z = 0;
 	ret->max_z = 0;
-	ret->mx = ft_matrix_rx(0.959931);
-	ret->my = 0;
-	ret->mz = ft_matrix_rz(0.785398);
 	ret->cone = 0;
 	ret->space = ft_compute_size(ret);
-	ret->vo = ft_alloc_coord(ret);
-	ret->v = ft_alloc_coord(ret);
-	ret->ri = ft_multiply_matrix(ret->mx, ret->mz);
-	ret->r = ft_alloc_matrix();
-	ret->offset_hgt = 100;
-	ret->offset_wdt = 250;
+	ret->geo = ft_init_geo(ret);
 	ft_parse(fd, path, line, ret);
-	ret->alt = ft_altitude(ret);
-	ft_init_color(ret);
-	ft_add_z(ret);
+	ret->alt = ft_altitude(ret, ret->geo);
+	ft_init_color(ret, ret->geo);
+	ft_add_z(ret, ret->geo);
 	return (ret);
 }

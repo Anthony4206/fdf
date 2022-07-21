@@ -6,7 +6,7 @@
 /*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 12:31:07 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/21 15:19:14 by Anthony          ###   ########.fr       */
+/*   Updated: 2022/07/21 17:15:59 by Anthony          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,26 +88,4 @@ double	ft_compute_size(t_map *map)
 		return (ret_hgt);
 	else
 		return (ret_wdt);
-}
-
-int	ft_altitude(t_map *map)
-{
-	int	i;
-	int	j;
-
-	j = 0;
-	while (j < map->hgt)
-	{
-		i = 0;
-		while (i < map->wdt)
-		{
-			if (map->vo[j][i].z < map->min_z)
-				map->min_z = map->vo[j][i].z;
-			if (map->vo[j][i].z > map->max_z)
-				map->max_z = map->vo[j][i].z;
-			i++;
-		}
-		j++;
-	}
-	return (map->max_z - map->min_z);
 }
