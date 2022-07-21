@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_matrix.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 07:22:48 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/20 13:34:34 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/07/20 21:13:57 by Anthony          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,53 +106,4 @@ double	**ft_multiply_matrix(double **m1, double **m2)
 		}
 	}
 	return (ret);
-}
-
-/*void	ft_change_coord(t_map *map)
-{
-	int	i;
-	int	j;
-	int	p;
-
-	p = 100;
-	j = 0;
-	while (j < map->hgt)
-	{
-		i = 0;
-		while (i < map->wdt)
-		{
-			map->v[j][i].x *= p / (p - map->v[j][i].z);
-			map->v[j][i].y *= p / (p - map->v[j][i].z);
-			i++;
-		}
-		j++;
-	}
-}*/
-
-void	ft_calculate_point(t_map *map, double **r, t_point **vo)
-{
-	int		i;
-	int		j;
-	int		p;
-
-	p = map->space * 30;
-	j = 0;
-	while (j < map->hgt)
-	{
-		i = 0;
-		while (i < map->wdt)
-		{
-			map->v[j][i].x = vo[j][i].x * r[0][0] + vo[j][i].y * r[0][1] + vo[j][i].z * r[0][2];
-			map->v[j][i].y = vo[j][i].x * r[1][0] + vo[j][i].y * r[1][1] + vo[j][i].z * r[1][2];
-			map->v[j][i].z = vo[j][i].x * r[2][0] + vo[j][i].y * r[2][1] + vo[j][i].z * r[2][2];
-			if (map->cone)
-			{
-				map->v[j][i].x *= p / (p - map->v[j][i].z);
-				map->v[j][i].y *= p / (p - map->v[j][i].z);
-			}
-			map->v[j][i].color = map->vo[j][i].color;
-			i++;
-		}
-		j++;
-	}
 }

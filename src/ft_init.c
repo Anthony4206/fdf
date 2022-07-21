@@ -3,55 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 11:42:05 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/20 13:41:45 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/07/21 15:19:14 by Anthony          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int	ft_count_wdt(char *line)
+t_brez	*ft_init_brez(t_pt *pix1, t_pt *pix2)
 {
-	int	i;
-	int	wdt;
+	t_brez	*ret;
 
-	i = 0;
-	wdt = 0;
-	while (line[i])
-	{
-		if (ft_isdigit(line[i]) && (line[i + 1] == ' ' || line[i + 1] == '\n'))
-			wdt++;
-		i++;
-	}
-	return (wdt);
-}
-
-static int	ft_count_hgt(int fd, char *line)
-{
-	int	i;
-	int	hgt;
-
-	i = 1;
-	hgt = 1;
-	while (i)
-	{
-		line = get_next_line(fd);
-		if (line == '\0')
-			i = 0;
-		else
-			hgt++;
-		free (line);
-	}
-	return (hgt);
-}
-
-t_bresenham	*ft_init_bresenham(t_point *pix1, t_point *pix2)
-{
-	t_bresenham	*ret;
-
-	ret = malloc(sizeof(t_bresenham));
+	ret = malloc(sizeof(t_brez));
 	if (!ret)
 		exit (EXIT_FAILURE);
 	ret->x1 = pix1->x;
@@ -69,51 +34,12 @@ t_bresenham	*ft_init_bresenham(t_point *pix1, t_point *pix2)
 	return (ret);
 }
 
-t_point	**ft_init_coord(t_map *map)
-{
-	t_point	**ret;
-	int		i;
-
-	i = 0;
-	ret = ft_calloc(map->hgt, sizeof(t_point *));
-	while (i < map->hgt)
-	{
-		ret[i] = ft_calloc(map->wdt, sizeof(t_point));
-		i++;
-	}
-	return (ret);
-}
-
-int	ft_middle(t_map *map, int opts)
-{
-	int	ret;
-
-	ret = 0;
-	if (opts)
-		ret = map->x_origin - (map->v[map->hgt / 2][map->wdt / 2].x - map->v[0][0].x);
-	else
-		ret = map->y_origin - (map->v[map->hgt / 2][map->wdt / 2].y - map->v[0][0].y);
-	return (ret);
-}
-
-int	ft_add_color(t_map *map, double z)
-{
-	double	coef;
-
-	if (z >= 0)
-		coef = -(128 / map->max_z);
-	else
-		coef = (128 / map->min_z);
-	return (ft_create_trgb(0, 255, 128 + (coef * z), 0));
-}
-
 void	ft_init_color(t_map *map)
 {
 	int	i;
 	int	j;
 
 	j = 0;
-	i = 0;
 	while (j < map->hgt)
 	{
 		i = 0;
@@ -154,8 +80,8 @@ t_map	*ft_init_map(char *path)
 	ret->mz = ft_matrix_rz(0.785398);
 	ret->cone = 0;
 	ret->space = ft_compute_size(ret);
-	ret->vo = ft_init_coord(ret);
-	ret->v = ft_init_coord(ret);
+	ret->vo = ft_alloc_coord(ret);
+	ret->v = ft_alloc_coord(ret);
 	ret->ri = ft_multiply_matrix(ret->mx, ret->mz);
 	ret->r = ft_alloc_matrix();
 	ret->offset_hgt = 100;

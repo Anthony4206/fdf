@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*   ft_calculate_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 08:03:49 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/20 12:09:14 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/07/21 14:06:01 by Anthony          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@ int	ft_abs(int j)
 	return (j);
 }
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+int	ft_middle(t_map *map, int opts)
 {
-	char	*dst;
+	int	ret;
 
-	if (x > 0 && x < WIN_WDT && y > 0 && y < WIN_HGT)
-	{
-		dst = data->addr + (y * data->line_len + x * (data->bpp / 8));
-		*(int *)dst = color;
-	}
+	ret = 0;
+	if (opts)
+		ret = map->x_origin - (map->v[map->hgt / 2][map->wdt / 2].x - map->v[0][0].x);
+	else
+		ret = map->y_origin - (map->v[map->hgt / 2][map->wdt / 2].y - map->v[0][0].y);
+	return (ret);
 }

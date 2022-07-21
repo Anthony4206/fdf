@@ -3,19 +3,20 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+         #
+#    By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/01 13:11:44 by alevasse          #+#    #+#              #
-#    Updated: 2022/07/20 12:33:59 by alevasse         ###   ########.fr        #
+#    Updated: 2022/07/21 16:12:43 by Anthony          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 			= fdf
 NAME_B 			= fdf
 
-SRC 			=	src/main.c			src/ft_init.c			src/ft_parse.c	src/ft_utils.c \
-					src/ft_draw_line.c	src/ft_matrix.c			src/ft_htoi.c	src/ft_color_utils.c \
-					src/ft_bresenham.c	src/ft_parse_utils.c	src/ft_color.c
+SRC 			=	src/main.c			src/ft_init.c			src/ft_parse.c	src/ft_calculate_utils.c \
+					src/ft_draw_map.c	src/ft_matrix.c			src/ft_htoi.c	src/ft_color_utils.c \
+					src/ft_bresenham.c	src/ft_parse_utils.c	src/ft_color.c	src/ft_hook.c \
+					src/ft_close.c
 
 SRC_B 			= 
 
@@ -27,11 +28,11 @@ INCLUDE 		= -I./include/ -Imlx
 MLX				= -Lmlx -lmlx -framework OpenGL -framework AppKit
 
 HEAD			=
-					
+
 LIBS 			= ./libft/
 				
 CC 				= gcc -g
-CFLAGS 			= -Wall -Wextra -Werror -fsanitize=address
+CFLAGS 			= -Wall -Wextra -Werror #-fsanitize=address
 
 AR 				= ar rcs
 RM 				= rm -f
