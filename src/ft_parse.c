@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 10:18:28 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/21 22:08:49 by Anthony          ###   ########.fr       */
+/*   Updated: 2022/07/22 13:46:26 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	ft_init_size(int fd, char *line, t_map *map)
+{
+	map->wdt = ft_count_wdt(line);
+	free (line);
+	map->hgt = ft_count_hgt(fd, line);
+	close (fd);
+}
 
 int	ft_altitude(t_map *map, t_geo *geo)
 {

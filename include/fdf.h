@@ -6,7 +6,7 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 07:39:45 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/22 11:19:48 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/07/22 13:47:24 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,25 @@ typedef struct s_env
 
 }			t_env;
 
+typedef struct s_rot
+{
+	double	**mx1;
+	double	**my1;
+	double	**mz1;
+	double	**mx2;
+	double	**my2;
+	double	**mz2;
+}			t_rot;
+
 typedef struct s_geo
 {
 	t_pt	**vo;
 	t_pt	**v;
 	t_pt	**rotate;
 	t_pt	**save;
-	double	**mx;
-	double	**my;
-	double	**mz;
+	t_rot	rot;
+	double	**init_mx;
+	double	**init_mz;
 	double	**ri;
 	double	**r;
 }			t_geo;
@@ -133,8 +143,8 @@ int		ft_htoi(const char *str);
 // init
 t_brez	*ft_init_brez(t_pt *pix1, t_pt *pix2);
 void	ft_init_color(t_map *map, t_geo *geo);
+t_rot	ft_init_rot(void);
 t_geo	*ft_init_geo(t_map *map);
-void	ft_init_size(int fd, char *line, t_map *map);
 t_map	*ft_init_map(char *path);
 // matrix
 double	**ft_alloc_matrix(void);
@@ -149,6 +159,7 @@ int		ft_count_hgt(int fd, char *line);
 void	ft_next_atoi(char *line, int *k);
 double	ft_compute_size(t_map *map);
 // parse
+void	ft_init_size(int fd, char *line, t_map *map);
 int		ft_altitude(t_map *map, t_geo *geo);
 void	ft_add_z(t_map *map, t_geo *geo);
 void	ft_add_coord(char *line, t_map *map, t_geo *geo, int j);
