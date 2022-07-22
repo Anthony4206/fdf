@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 07:39:45 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/21 22:58:03 by Anthony          ###   ########.fr       */
+/*   Updated: 2022/07/22 11:19:48 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void	ft_exeption(t_run *run, t_pt *pix1, t_pt *pix2, t_brez *line);
 int		ft_abs(int j);
 int		ft_middle(t_map *map, t_geo *geo, int opts);
 //	close
+void	ft_free_matrix(double **m);
 int		ft_close(t_env *env);
 // color utils
 int		ft_create_trgb(int t, int r, int g, int b);

@@ -28,10 +28,11 @@ void	ft_zoom(t_map *map, t_geo *geo, float coef)
 
 void	ft_rotation(int keycode, t_geo *geo)
 {
+//	ft_free_matrix(geo->r);
 	if (keycode == 0)
 		geo->r = ft_multiply_matrix(geo->ri, ft_matrix_rz(0.0974533));
 	if (keycode == 1)
-		geo->r = ft_multiply_matrix(ft_matrix_rx(0.0974533),geo->ri);
+		geo->r = ft_multiply_matrix(ft_matrix_rx(0.0974533), geo->ri);
 	if (keycode == 2)
 		geo->r = ft_multiply_matrix(geo->ri, ft_matrix_rz(-0.0974533));
 	if (keycode == 12)
@@ -40,6 +41,7 @@ void	ft_rotation(int keycode, t_geo *geo)
 		geo->r = ft_multiply_matrix(ft_matrix_rx(-0.0974533), geo->ri);
 	if (keycode == 14)
 		geo->r = ft_multiply_matrix(ft_matrix_ry(0.0974533), geo->ri);
+	ft_free_matrix(geo->ri);
 	geo->ri = geo->r;
 }
 

@@ -1,0 +1,171 @@
+Process:         fdf [91242]
+Path:            /Volumes/VOLUME/*/fdf
+Load Address:    0x109805000
+Identifier:      fdf
+Version:         ???
+Code Type:       X86-64
+Parent Process:  zsh [82588]
+
+Date/Time:       2022-07-22 12:09:31.639 +0200
+Launch Time:     2022-07-22 12:09:25.989 +0200
+OS Version:      Mac OS X 10.14.6 (18G9323)
+Report Version:  7
+Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
+Analysis Tool Version:  Xcode 11.3.1 (11C505)
+----
+
+leaks Report Version: 4.0
+Process 91242: 20090 nodes malloced for 7238 KB
+Process 91242: 119 leaks for 3808 total leaked bytes.
+
+    119 (3.72K) << TOTAL >>
+
+      4 (128 bytes) ROOT LEAK: 0x7ff20540a820 [32]
+         1 (32 bytes) 0x7ff205404370 [32]
+         1 (32 bytes) 0x7ff205405c30 [32]
+         1 (32 bytes) 0x7ff205411210 [32]
+
+      4 (128 bytes) ROOT LEAK: 0x7ff205580780 [32]
+         1 (32 bytes) 0x7ff20557ad80 [32]
+         1 (32 bytes) 0x7ff205580720 [32]
+         1 (32 bytes) 0x7ff205584e80 [32]
+
+      4 (128 bytes) ROOT LEAK: 0x7ff205580870 [32]
+         1 (32 bytes) 0x7ff205584740 [32]
+         1 (32 bytes) 0x7ff205584940 [32]
+         1 (32 bytes) 0x7ff205587560 [32]
+
+      4 (128 bytes) ROOT LEAK: 0x7ff205584590 [32]
+         1 (32 bytes) 0x7ff205584c80 [32]
+         1 (32 bytes) 0x7ff205587b60 [32]
+         1 (32 bytes) 0x7ff205588000 [32]
+
+      4 (128 bytes) ROOT LEAK: 0x7ff205584ef0 [32]
+         1 (32 bytes) 0x7ff2055845b0 [32]
+         1 (32 bytes) 0x7ff20558ae40 [32]
+         1 (32 bytes) 0x7ff20558ae60 [32]
+
+      4 (128 bytes) ROOT LEAK: 0x7ff20558b630 [32]
+         1 (32 bytes) 0x7ff205500a20 [32]
+         1 (32 bytes) 0x7ff205500a40 [32]
+         1 (32 bytes) 0x7ff205584f10 [32]
+
+      4 (128 bytes) ROOT LEAK: 0x7ff20558b670 [32]
+         1 (32 bytes) 0x7ff20558b240 [32]
+         1 (32 bytes) 0x7ff20558b430 [32]
+         1 (32 bytes) 0x7ff20558b610 [32]
+
+      4 (128 bytes) ROOT LEAK: 0x7ff20558c150 [32]
+         1 (32 bytes) 0x7ff20558b650 [32]
+         1 (32 bytes) 0x7ff20558bac0 [32]
+         1 (32 bytes) 0x7ff20558bae0 [32]
+
+      4 (128 bytes) ROOT LEAK: 0x7ff20561f2c0 [32]
+         1 (32 bytes) 0x7ff205659a90 [32]
+         1 (32 bytes) 0x7ff205659ab0 [32]
+         1 (32 bytes) 0x7ff205659ad0 [32]
+
+      4 (128 bytes) ROOT LEAK: 0x7ff20561f2e0 [32]
+         1 (32 bytes) 0x7ff20561f300 [32]
+         1 (32 bytes) 0x7ff205659d10 [32]
+         1 (32 bytes) 0x7ff205659d30 [32]
+
+      4 (128 bytes) ROOT LEAK: 0x7ff205658dd0 [32]
+         1 (32 bytes) 0x7ff20561d4a0 [32]
+         1 (32 bytes) 0x7ff20561d5d0 [32]
+         1 (32 bytes) 0x7ff205658740 [32]
+
+      4 (128 bytes) ROOT LEAK: 0x7ff205659760 [32]
+         1 (32 bytes) 0x7ff20561f2a0 [32]
+         1 (32 bytes) 0x7ff205659db0 [32]
+         1 (32 bytes) 0x7ff205659dd0 [32]
+
+      4 (128 bytes) ROOT LEAK: 0x7ff205659790 [32]
+         1 (32 bytes) 0x7ff205659a30 [32]
+         1 (32 bytes) 0x7ff205659a50 [32]
+         1 (32 bytes) 0x7ff205659a70 [32]
+
+      4 (128 bytes) ROOT LEAK: 0x7ff2056597b0 [32]
+         1 (32 bytes) 0x7ff205657c70 [32]
+         1 (32 bytes) 0x7ff205657c90 [32]
+         1 (32 bytes) 0x7ff205658ea0 [32]
+
+      4 (128 bytes) ROOT LEAK: 0x7ff205659af0 [32]
+         1 (32 bytes) 0x7ff205659b30 [32]
+         1 (32 bytes) 0x7ff20565a1e0 [32]
+         1 (32 bytes) 0x7ff20565a200 [32]
+
+      4 (128 bytes) ROOT LEAK: 0x7ff205659b10 [32]
+         1 (32 bytes) 0x7ff205659d80 [32]
+         1 (32 bytes) 0x7ff20565a190 [32]
+         1 (32 bytes) 0x7ff20565a1b0 [32]
+
+      4 (128 bytes) ROOT LEAK: 0x7ff20565a140 [32]
+         1 (32 bytes) 0x7ff20565a220 [32]
+         1 (32 bytes) 0x7ff20565a320 [32]
+         1 (32 bytes) 0x7ff20565a340 [32]
+
+      4 (128 bytes) ROOT LEAK: 0x7ff20565a160 [32]
+         1 (32 bytes) 0x7ff205659d50 [32]
+         1 (32 bytes) 0x7ff20565a240 [32]
+         1 (32 bytes) 0x7ff20565a260 [32]
+
+      4 (128 bytes) ROOT LEAK: 0x7ff20565a300 [32]
+         1 (32 bytes) 0x7ff20565a110 [32]
+         1 (32 bytes) 0x7ff20565a6d0 [32]
+         1 (32 bytes) 0x7ff20565a6f0 [32]
+
+      4 (128 bytes) ROOT LEAK: 0x7ff205701f00 [32]
+         1 (32 bytes) 0x7ff205701f20 [32]
+         1 (32 bytes) 0x7ff205701f40 [32]
+         1 (32 bytes) 0x7ff205701f60 [32]
+
+      4 (128 bytes) ROOT LEAK: 0x7ff2057a6110 [32]
+         1 (32 bytes) 0x7ff2057a6330 [32]
+         1 (32 bytes) 0x7ff2057a6fd0 [32]
+         1 (32 bytes) 0x7ff2057a7f40 [32]
+
+      4 (128 bytes) ROOT LEAK: 0x7ff2057a6d00 [32]
+         1 (32 bytes) 0x7ff2057aaa90 [32]
+         1 (32 bytes) 0x7ff2057b34c0 [32]
+         1 (32 bytes) 0x7ff2057b3b50 [32]
+
+      4 (128 bytes) ROOT LEAK: 0x7ff2057a7c40 [32]
+         1 (32 bytes) 0x7ff2057a7bd0 [32]
+         1 (32 bytes) 0x7ff2057a7cb0 [32]
+         1 (32 bytes) 0x7ff2057a8be0 [32]
+
+      4 (128 bytes) ROOT LEAK: 0x7ff2057a8210 [32]
+         1 (32 bytes) 0x7ff2057a49f0 [32]
+         1 (32 bytes) 0x7ff2057a7a80 [32]
+         1 (32 bytes) 0x7ff2057a8d00 [32]
+
+      4 (128 bytes) ROOT LEAK: 0x7ff2057a8480 [32]
+         1 (32 bytes) 0x7ff2057a5200 [32]
+         1 (32 bytes) 0x7ff2057a5500 [32]
+         1 (32 bytes) 0x7ff2057a57c0 [32]
+
+      4 (128 bytes) ROOT LEAK: 0x7ff2057a8550 [32]
+         1 (32 bytes) 0x7ff2057a5a60 [32]
+         1 (32 bytes) 0x7ff2057a81a0 [32]
+         1 (32 bytes) 0x7ff2057a82f0 [32]
+
+      4 (128 bytes) ROOT LEAK: 0x7ff2057aca60 [32]
+         1 (32 bytes) 0x7ff2057a5b60 [32]
+         1 (32 bytes) 0x7ff2057a64c0 [32]
+         1 (32 bytes) 0x7ff2057b4f50 [32]
+
+      4 (128 bytes) ROOT LEAK: 0x7ff2057b8330 [32]
+         1 (32 bytes) 0x7ff2057a86f0 [32]
+         1 (32 bytes) 0x7ff2057a8960 [32]
+         1 (32 bytes) 0x7ff2057a8ab0 [32]
+
+      4 (128 bytes) ROOT LEAK: 0x7ff2057c21c0 [32]
+         1 (32 bytes) 0x7ff2057a5020 [32]
+         1 (32 bytes) 0x7ff2057a7240 [32]
+         1 (32 bytes) 0x7ff2057a7320 [32]
+
+      3 (96 bytes) ROOT LEAK: 0x7ff205413e00 [32]
+         1 (32 bytes) 0x7ff2054039e0 [32]
+         1 (32 bytes) 0x7ff205412cc0 [32]
+

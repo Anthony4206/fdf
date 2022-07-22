@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_draw_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 07:39:23 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/21 22:51:11 by Anthony          ###   ########.fr       */
+/*   Updated: 2022/07/22 10:12:55 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	ft_push_line(t_run *run, t_pt *pix1, t_pt *pix2, t_brez *line)
 		ft_diagonal(run, pix1, pix2, line);
 	else
 		ft_exeption(run, pix1, pix2, line);
+	free (line);
 }
 
 void	ft_calculate_point(t_map *map, double **r, t_pt **v, t_pt **vo)
@@ -61,8 +62,8 @@ void	ft_calculate_point(t_map *map, double **r, t_pt **v, t_pt **vo)
 void	ft_draw_lines(t_run *run, t_map *map, t_geo *geo)
 {
 	t_brez	line;
-	int			i;
-	int			j;
+	int		i;
+	int		j;
 
 	ft_calculate_point(map, geo->ri, geo->v, geo->vo);
 	j = 0;

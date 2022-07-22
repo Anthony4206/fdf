@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 11:42:05 by alevasse          #+#    #+#             */
-/*   Updated: 2022/07/21 22:59:49 by Anthony          ###   ########.fr       */
+/*   Updated: 2022/07/22 11:13:12 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_geo	*ft_init_geo(t_map *map)
 {
 	t_geo	*ret;
 
-	ret = malloc(sizeof(t_map));
+	ret = malloc(sizeof(t_geo));
 	if (!ret)
 		exit (EXIT_FAILURE);
 	ret->mx = ft_matrix_rx(0.959931);
@@ -66,7 +66,7 @@ t_geo	*ft_init_geo(t_map *map)
 	ret->ri = ft_multiply_matrix(ret->mx, ret->mz);
 	ret->r = ft_alloc_matrix();
 	ret->vo = ft_alloc_coord(map);
-	ret->v = ft_alloc_coord(map);	
+	ret->v = ft_alloc_coord(map);
 	return (ret);
 }
 

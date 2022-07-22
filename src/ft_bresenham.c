@@ -31,7 +31,7 @@ void	ft_fst_condition(t_run *run, t_pt *pix1, t_pt *pix2, t_brez *line)
 	while (i <= line->save_dx)
 	{
 		my_mlx_pixel_put(&run->env.img, line->x1 + ft_middle(run->map,
-			run->map->geo, 1), line->y1 + ft_middle(run->map, run->map->geo,
+				run->map->geo, 1), line->y1 + ft_middle(run->map, run->map->geo,
 				0), ft_put_color(pix1, pix2, (float)i / line->save_dx));
 		i++;
 		line->x1 += line->x_incr;
@@ -52,7 +52,7 @@ void	ft_snd_condition(t_run *run, t_pt *pix1, t_pt *pix2, t_brez *line)
 	while (i <= line->save_dy)
 	{
 		my_mlx_pixel_put(&run->env.img, line->x1 + ft_middle(run->map,
-			run->map->geo, 1), line->y1 + ft_middle(run->map, run->map->geo,
+				run->map->geo, 1), line->y1 + ft_middle(run->map, run->map->geo,
 				0), ft_put_color(pix1, pix2, (float)i / line->save_dy));
 		i++;
 		line->y1 += line->y_incr;
@@ -77,8 +77,8 @@ void	ft_diagonal(t_run *run, t_pt *pix1, t_pt *pix2, t_brez *line)
 	while (++i <= line->save_dx)
 	{
 		my_mlx_pixel_put(&run->env.img, line->x1 + ft_middle(run->map,
-			run->map->geo, 1), line->y1 + ft_middle(run->map, run->map->geo,
-				0), ft_put_color(pix1, pix2, (float)i / d));
+				run->map->geo, 1), line->y1 + ft_middle(run->map,
+				run->map->geo, 0), ft_put_color(pix1, pix2, (float)i / d));
 		line->y1 += line->y_incr;
 		line->x1 += line->x_incr;
 	}
@@ -96,8 +96,8 @@ void	ft_exeption(t_run *run, t_pt *pix1, t_pt *pix2, t_brez *line)
 	while (++i <= line->save_dy || i <= line->save_dx)
 	{
 		my_mlx_pixel_put(&run->env.img, line->x1 + ft_middle(run->map,
-			run->map->geo, 1), line->y1 + ft_middle(run->map, run->map->geo,
-				0), ft_put_color(pix1, pix2, (float)i / d));
+				run->map->geo, 1), line->y1 + ft_middle(run->map,
+				run->map->geo, 0), ft_put_color(pix1, pix2, (float)i / d));
 		if (line->save_dx == 0)
 			line->y1 += line->y_incr;
 		else
